@@ -1,5 +1,5 @@
 package com.event;
 
-public class Event {
+public class EventDAO {
 
 }
