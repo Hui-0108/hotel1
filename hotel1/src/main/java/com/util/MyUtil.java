@@ -12,7 +12,7 @@ public class MyUtil {
 	public int pageCount(int rows, int dataCount) {
 		if(dataCount <= 0) 
 			return 0;
-	
+	 
 		return dataCount / rows + (dataCount % rows > 0 ? 1 : 0);
 	}
 	
