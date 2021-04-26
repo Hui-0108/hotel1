@@ -3,7 +3,6 @@ package com.event;
 public class EventDTO {
 	private int eventNum;
 	private String eventName;
-	private String subject;
 	private String content;
 	private String startDate;
 	private String endDate;
@@ -21,12 +20,6 @@ public class EventDTO {
 	}
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
-	}
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
 	}
 	public String getContent() {
 		return content;

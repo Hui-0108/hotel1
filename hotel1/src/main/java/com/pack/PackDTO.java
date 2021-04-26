@@ -3,13 +3,17 @@ package com.pack;
 public class PackDTO {
 	private int pkgNum;
 	private String pkgName;
-	private String subject;
 	private String content;
 	private String startDate;
 	private String endDate;
-	private String discountPrice;
 	private String summery;
 	private String imageFilename;
+	private int deluxe;
+	private int bDeluxe;
+	private int gcDeluxe;
+	private int ebDeluxe;
+	private int egDeluxe;
+	private int sSuite;
 	
 	public int getPkgNum() {
 		return pkgNum;
@@ -22,12 +26,6 @@ public class PackDTO {
 	}
 	public void setPkgName(String pkgName) {
 		this.pkgName = pkgName;
-	}
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
 	}
 	public String getContent() {
 		return content;
@@ -47,12 +45,6 @@ public class PackDTO {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	public String getDiscountPrice() {
-		return discountPrice;
-	}
-	public void setDiscountPrice(String discountPrice) {
-		this.discountPrice = discountPrice;
-	}
 	public String getSummery() {
 		return summery;
 	}
@@ -64,5 +56,41 @@ public class PackDTO {
 	}
 	public void setImageFilename(String imageFilename) {
 		this.imageFilename = imageFilename;
+	}
+	public int getDeluxe() {
+		return deluxe;
+	}
+	public void setDeluxe(int deluxe) {
+		this.deluxe = deluxe;
+	}
+	public int getbDeluxe() {
+		return bDeluxe;
+	}
+	public void setbDeluxe(int bDeluxe) {
+		this.bDeluxe = bDeluxe;
+	}
+	public int getGcDeluxe() {
+		return gcDeluxe;
+	}
+	public void setGcDeluxe(int gcDeluxe) {
+		this.gcDeluxe = gcDeluxe;
+	}
+	public int getEbDeluxe() {
+		return ebDeluxe;
+	}
+	public void setEbDeluxe(int ebDeluxe) {
+		this.ebDeluxe = ebDeluxe;
+	}
+	public int getEgDeluxe() {
+		return egDeluxe;
+	}
+	public void setEgDeluxe(int egDeluxe) {
+		this.egDeluxe = egDeluxe;
+	}
+	public int getsSuite() {
+		return sSuite;
+	}
+	public void setsSuite(int sSuite) {
+		this.sSuite = sSuite;
 	}
 }
