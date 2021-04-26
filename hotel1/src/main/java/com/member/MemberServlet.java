@@ -107,7 +107,7 @@ public class MemberServlet extends MyServlet{
 		session.removeAttribute("member");
 		
 		//(2)세션에 저장된 모든 정보를 지우고 세션을 초기화 한다.		
-		session.invalidate();  //세션 시간 20분 ->30분으로 돌아옴
+		session.invalidate();  //세션 시간 20분 ->30분(세션유지 기본값)으로 돌아옴
 
 		//3) 로그아웃 성공 후 메인 화면으로 리다이렉트			
 		resp.sendRedirect(cp);
