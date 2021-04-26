@@ -212,7 +212,7 @@ public class MemberDAO {
 	public int deleteMember(String userId) throws SQLException{
 		int result = 0;
 		PreparedStatement pstmt = null;
-		
+		       
 		try {
 			
 		} catch (Exception e) {
