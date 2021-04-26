@@ -1,5 +1,6 @@
 package com.dining;
 
 public class DiningDTO {
-//aSasdmmslml
+//aSasdmmslmlx
+	int a;
 }
