@@ -214,7 +214,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		       
 		try {
-			
+			//브랜치생성하기
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
