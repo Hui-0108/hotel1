@@ -10,6 +10,6 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 </head>
 <body>
-tests
+tests test
 </body>
 </html>
