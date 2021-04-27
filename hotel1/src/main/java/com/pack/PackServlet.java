@@ -106,7 +106,7 @@ public class PackServlet extends MyUploadServlet{
 			dto.setContent(req.getParameter("content"));
 			dto.setStartDate(req.getParameter("startDate"));
 			dto.setEndDate(req.getParameter("endDate"));
-			dto.setSummery(req.getParameter("summery"));
+			dto.setsummary(req.getParameter("summary"));
 			dto.setDeluxe(Integer.parseInt(req.getParameter("deluxe")));
 			dto.setbDeluxe(Integer.parseInt(req.getParameter("bDeluxe")));
 			dto.setGcDeluxe(Integer.parseInt(req.getParameter("gcDeluxe")));
@@ -206,7 +206,7 @@ public class PackServlet extends MyUploadServlet{
 			dto.setContent(req.getParameter("content"));
 			dto.setStartDate(req.getParameter("startDate"));
 			dto.setEndDate(req.getParameter("endDate"));
-			dto.setSummery(req.getParameter("summery"));
+			dto.setsummary(req.getParameter("summary"));
 			
 			String imageFilename=req.getParameter("imageFilename");
 			dto.setImageFilename(imageFilename);

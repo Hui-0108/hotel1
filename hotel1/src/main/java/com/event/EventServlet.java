@@ -104,7 +104,7 @@ public class EventServlet extends MyUploadServlet{
 			dto.setContent(req.getParameter("content"));
 			dto.setStartDate(req.getParameter("startDate"));
 			dto.setEndDate(req.getParameter("endDate"));
-			dto.setSummery(req.getParameter("summery"));
+			dto.setsummary(req.getParameter("summary"));
 			
 			String filename = null;
 			Part p = req.getPart("selectFile");
@@ -199,7 +199,7 @@ public class EventServlet extends MyUploadServlet{
 			dto.setContent(req.getParameter("content"));
 			dto.setStartDate(req.getParameter("startDate"));
 			dto.setEndDate(req.getParameter("endDate"));
-			dto.setSummery(req.getParameter("summery"));
+			dto.setsummary(req.getParameter("summary"));
 			
 			String imageFilename=req.getParameter("imageFilename");
 			dto.setImageFilename(imageFilename);

@@ -6,7 +6,7 @@ public class EventDTO {
 	private String content;
 	private String startDate;
 	private String endDate;
-	private String summery;
+	private String summary;
 	private String imageFilename;
 	
 	public int getEventNum() {
@@ -39,11 +39,11 @@ public class EventDTO {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	public String getSummery() {
-		return summery;
+	public String getsummary() {
+		return summary;
 	}
-	public void setSummery(String summery) {
-		this.summery = summery;
+	public void setsummary(String summary) {
+		this.summary = summary;
 	}
 	public String getImageFilename() {
 		return imageFilename;

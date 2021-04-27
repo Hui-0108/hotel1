@@ -18,7 +18,7 @@ public class EventDAO {
 		String sql;
 		
 		try {
-			sql="INSERT INTO event (eventNum, eventName, content, startDate, endDate, summery, imageFilename) "
+			sql="INSERT INTO event (eventNum, eventName, content, startDate, endDate, summary, imageFilename) "
 					+ "VALUES (event_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -27,7 +27,7 @@ public class EventDAO {
 			pstmt.setString(2, dto.getContent());
 			pstmt.setString(3, dto.getStartDate());
 			pstmt.setString(4, dto.getEndDate());
-			pstmt.setString(5, dto.getSummery());
+			pstmt.setString(5, dto.getsummary());
 			pstmt.setString(6, dto.getImageFilename());
 			
 			result = pstmt.executeUpdate();
@@ -85,7 +85,7 @@ public class EventDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT eventNum, eventName, content, startDate, endDate, summery, imageFilename "
+			sql = "SELECT eventNum, eventName, content, startDate, endDate, summary, imageFilename "
 					+ "FROM event "
 					+ "ORDER BY eventNum DESC "
 					+ "OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
@@ -102,7 +102,7 @@ public class EventDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setStartDate(rs.getString("startDate"));
 				dto.setEndDate(rs.getString("endDate"));
-				dto.setSummery(rs.getString("summery"));
+				dto.setsummary(rs.getString("summary"));
 				dto.setImageFilename(rs.getString("imageFilename"));
 				list.add(dto);
 			}
@@ -132,7 +132,7 @@ public class EventDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT eventNum, eventName, content, startDate, endDate, summery, imageFilename "
+			sql = "SELECT eventNum, eventName, content, startDate, endDate, summary, imageFilename "
 					+ "FROM event "
 					+ "WHERE eventNum=?";
 			
@@ -147,7 +147,7 @@ public class EventDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setStartDate(rs.getString("startDate"));
 				dto.setEndDate(rs.getString("endDate"));
-				dto.setSummery(rs.getString("summery"));
+				dto.setsummary(rs.getString("summary"));
 				dto.setImageFilename(rs.getString("imageFilename"));
 			}
 		} catch (Exception e) {
@@ -176,14 +176,14 @@ public class EventDAO {
 		String sql;
 		
 		try {
-			sql="UPDATE event SET eventName=?, content=?, startDate=?, endDate=?, summery=?, imageFilename=? "
+			sql="UPDATE event SET eventName=?, content=?, startDate=?, endDate=?, summary=?, imageFilename=? "
 					+ "WHERE eventNum=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getEventName());
 			pstmt.setString(2, dto.getContent());
 			pstmt.setString(3, dto.getStartDate());
 			pstmt.setString(4, dto.getEndDate());
-			pstmt.setString(5, dto.getSummery());
+			pstmt.setString(5, dto.getsummary());
 			pstmt.setString(6, dto.getImageFilename());
 			pstmt.setInt(7, dto.getEventNum());
 			
