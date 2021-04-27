@@ -214,6 +214,7 @@ public class PackDAO {
 			pstmt.setString(4, dto.getEndDate());
 			pstmt.setString(5, dto.getSummery());
 			pstmt.setString(6, dto.getImageFilename());
+			pstmt.setInt(7, dto.getPkgNum());
 			
 			result = pstmt.executeUpdate();
 			
