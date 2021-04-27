@@ -124,7 +124,50 @@ public class MemberServlet extends MyServlet{
 
 	//회원가입 처리
 	private void memberSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberDAO dao = new MemberDAO();
+		String message = "";
 		
+		try {
+			MemberDTO dto = new MemberDTO();
+
+			dto.setUserId(req.getParameter("userId"));
+			dto.setUserPwd(req.getParameter("userPwd"));
+			
+			dto.setFirstName(req.getParameter("firstName"));
+			dto.setLastName(req.getParameter("lastName"));
+			
+			String birth=req.getParameter("birth").replaceAll("(\\.|\\-|\\/)", "");
+			dto.setBirth(birth);
+			String email1 = req.getParameter("email1");
+			String email2 = req.getParameter("email2");			
+			dto.setEmail(email1+"@"+email2);
+			
+			String tel1 = req.getParameter("tel1");
+			String tel2 = req.getParameter("tel2");
+			String tel3 = req.getParameter("tel3");
+			dto.setTel(tel1+"-"+tel2+"-"+tel3);
+			
+			dto.setZip(req.getParameter("zip"));
+			dto.setAddr1(req.getParameter("addr1"));
+			dto.setAddr2(req.getParameter("addr2"));
+			
+			dao.insertMember(dto);
+			String cp = req.getContextPath();
+			resp.sendRedirect(cp);
+			return;			
+			
+		//여기 예외처리 더 해야함	
+			
+			
+		} catch (Exception e) {
+			message = "가입 신청에 실패했습니다.";
+			e.printStackTrace();
+		}
+		
+		req.setAttribute("title", "회원가입");
+		req.setAttribute("mode", "member");
+		req.setAttribute("message", message);
+		forward(req, resp, "/WEB-INF/views/member/member.jsp");	
 	}
 	//패스워드 확인 폼
 	private void pwdForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

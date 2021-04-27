@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+.idTitle{
+	clear: both;
+}
+
+.idTitle-right{
+	float: right;
+}
+
+.tbName{
+    width: 120px;
+    background: #faf9f4;
+    line-height: 40px;
+    height: 40px;
+    padding-left: 15px;
+}
+
+.btnm{
+	background-color: #3a3125;
+	text-align:center;
+	padding:15px 20px 15px;
+	font-family: Dotum,'돋움',sans-serif,Arial, Helvetica;
+	color: #c0b9af;		
+	border:1px solid #3a3125;
+	cursor:pointer;
+}
+
+.btnm:active, .btnm:focus, .btnm:hover {
+	background-color:#e6e6e6;
+	border-color: #e6e6e6;
+	color: #c0b9af;		
+}
+
+.tbContent{
+	padding-left: 5px;
+}
+
+.body-container{
+	font-size: 13px;
+	
+}
+.memTable{
+	width: 100%;
+	margin-bottom: 40px;
+	
+}
+

@@ -1,18 +1,17 @@
 package com.member;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.client.ClientDTO;
 import com.util.DBConn;
 
 
 public class MemberDAO {
 	private Connection conn = DBConn.getConnection();
 	
-	public int insertMember(MemberDTO mto, ClientDTO cto)throws SQLException{
+	public int insertMember(MemberDTO dto)throws SQLException{
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
@@ -24,8 +23,8 @@ public class MemberDAO {
 					+ " VALUES( ?, ?, SYSDATE, SYSDATE) ";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, mto.getUserId());
-			pstmt.setString(2, mto.getUserPwd());
+			pstmt.setString(1, dto.getUserId());
+			pstmt.setString(2, dto.getUserPwd());
 			result = pstmt.executeUpdate();
 			pstmt.close();
 			pstmt = null;
@@ -33,11 +32,11 @@ public class MemberDAO {
 			sql = " INSERT INTO member2(userId, birth, zip, addr1, addr2) "
 					+ " VALUES( ?, TO_DATE(?,'YYYYMMDD') , ?, ?,  ? )  ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, mto.getUserId());
-			pstmt.setString(2, mto.getBirth());
-			pstmt.setString(4, mto.getZip());
-			pstmt.setString(5, mto.getAddr1());
-			pstmt.setString(6, mto.getAddr2());
+			pstmt.setString(1, dto.getUserId());
+			pstmt.setString(2, dto.getBirth());
+			pstmt.setString(4, dto.getZip());
+			pstmt.setString(5, dto.getAddr1());
+			pstmt.setString(6, dto.getAddr2());
 			
 			result += pstmt.executeUpdate();
 			pstmt.close();
@@ -47,10 +46,10 @@ public class MemberDAO {
 					+ " VALUES(client_seq.NEXTVAL,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, cto.getFirstName());
-			pstmt.setString(2, cto.getLastName());
-			pstmt.setString(3, cto.getEmail());
-			pstmt.setString(3, mto.getTel());
+			pstmt.setString(1, dto.getFirstName());
+			pstmt.setString(2, dto.getLastName());
+			pstmt.setString(3, dto.getEmail());
+			pstmt.setString(3, dto.getTel());
 			
 			result += pstmt.executeUpdate();
 			
@@ -212,9 +211,14 @@ public class MemberDAO {
 	public int deleteMember(String userId) throws SQLException{
 		int result = 0;
 		PreparedStatement pstmt = null;
-		       
+		String sql;
 		try {
-			//브랜치생성하기
+			sql = "DELETE FROM member1 WHERE userId = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.executeUpdate();
+			
+			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
