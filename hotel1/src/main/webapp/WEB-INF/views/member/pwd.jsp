@@ -10,11 +10,10 @@
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 </head>
 <body>
-<<<<<<< HEAD
+
      test  
-=======
 
 
->>>>>>> refs/remotes/origin/jeong
+
 </body>
 </html>
