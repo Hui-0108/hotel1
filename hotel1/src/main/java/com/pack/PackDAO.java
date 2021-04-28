@@ -20,7 +20,7 @@ public class PackDAO {
 		try {
 			conn.setAutoCommit(false);
 			
-			sql ="INSERT ALL INTO pack (pkgNum, pkgName, content, startDate, endDate, summery, imageFilename) "
+			sql ="INSERT ALL INTO pack (pkgNum, pkgName, content, startDate, endDate, summary, imageFilename) "
 					+ "VALUES (pack_seq.NEXTVAL, ?, ?, ?, ?, ?, ?) "
 					+ "INTO packPrice (pkgNum, deluxe, bDeluxe, gcDeluxe, ebDeluxe, egDeluxe, sSuite) "
 					+ "VALUES (pack_seq,CURRVAL, ?, ?, ?, ?, ?, ?)";
@@ -31,7 +31,7 @@ public class PackDAO {
 			pstmt.setString(2, dto.getContent());
 			pstmt.setString(3, dto.getStartDate());
 			pstmt.setString(4, dto.getEndDate());
-			pstmt.setString(5, dto.getSummery());
+			pstmt.setString(5, dto.getsummary());
 			pstmt.setString(6, dto.getImageFilename());
 			pstmt.setInt(7, dto.getDeluxe());
 			pstmt.setInt(8, dto.getbDeluxe());
@@ -105,7 +105,7 @@ public class PackDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT pkgNum, pkgName, content, startDate, endDate, summery, imageFilename "
+			sql = "SELECT pkgNum, pkgName, content, startDate, endDate, summary, imageFilename "
 					+ "FROM pack "
 					+ "ORDER BY pkgNum DESC "
 					+ "OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
@@ -122,7 +122,7 @@ public class PackDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setStartDate(rs.getString("startDate"));
 				dto.setEndDate(rs.getString("endDate"));
-				dto.setSummery(rs.getString("summery"));
+				dto.setsummary(rs.getString("summary"));
 				dto.setImageFilename(rs.getString("imageFilename"));
 				list.add(dto);
 			}
@@ -153,7 +153,7 @@ public class PackDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT pkgNum, pkgName, content, startDate, endDate, summery, imageFilename, "
+			sql = "SELECT pkgNum, pkgName, content, startDate, endDate, summary, imageFilename, "
 					+ "pp.deluxe, pp.bDeluxe, pp.gcDeluxe, pp.ebDeluxe, pp.egDeluxe, pp.sSuite "
 					+ "FROM pack p "
 					+ "JOIN packPrice pp ON p.pkgNum = pp.pkgNum "
@@ -170,7 +170,7 @@ public class PackDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setStartDate(rs.getString("startDate"));
 				dto.setEndDate(rs.getString("endDate"));
-				dto.setSummery(rs.getString("summery"));
+				dto.setsummary(rs.getString("summary"));
 				dto.setImageFilename(rs.getString("imageFilename"));
 				dto.setDeluxe(rs.getInt("deluxe"));
 				dto.setbDeluxe(rs.getInt("bDeluxe"));
@@ -205,15 +205,16 @@ public class PackDAO {
 		String sql;
 		
 		try {
-			sql="UPDATE pack SET pkgName=?, content=?, startDate=?, endDate=?, summery=?, imageFilename=? "
+			sql="UPDATE pack SET pkgName=?, content=?, startDate=?, endDate=?, summary=?, imageFilename=? "
 					+ "WHERE pkgNum=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getPkgName());
 			pstmt.setString(2, dto.getContent());
 			pstmt.setString(3, dto.getStartDate());
 			pstmt.setString(4, dto.getEndDate());
-			pstmt.setString(5, dto.getSummery());
+			pstmt.setString(5, dto.getsummary());
 			pstmt.setString(6, dto.getImageFilename());
+			pstmt.setInt(7, dto.getPkgNum());
 			
 			result = pstmt.executeUpdate();
 			
