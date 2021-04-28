@@ -1,4 +1,42 @@
 @charset "UTF-8";
-.body-content {
+*{
+	font-family: "Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+}
+
+.body-search {
 	width: 100%;
+	margin-bottom: 10px;
+}
+
+.body-search form {
+	width: 100%;
+}
+
+.body-search form table {
+	width: 100%;
+	font-size: 16px;
+}
+
+
+
+.body-search form table td {
+	width: 150px;
+	height: 35px;
+}
+
+.body-search form table td:nth-child(2) {
+	width: 60px;
+}
+
+#guestCount {
+	width: 40px;
+}
+
+#searchBtn {
+	width: 100px;
+	height: 50px;
+}
+
+.btnConfirm:hover {
+	cursor: pointer;
 }

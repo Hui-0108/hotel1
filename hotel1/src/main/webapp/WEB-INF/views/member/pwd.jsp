@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 확인 | THE Ezo Hotels</title>
+<title>Insert title here</title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 <style type="text/css">
@@ -134,7 +134,6 @@ function deleteMember() {
 			  </tr>
 		    </table>
 			</form>
-			           
 		    <table style="width:420px; margin: 10px auto 0; border-collapse: collapse;">
 			  <tr align="center" height="30" >
 			    	<td><span style="color: brown;">${message}</span></td>
