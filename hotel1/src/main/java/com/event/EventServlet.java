@@ -16,7 +16,7 @@ import com.util.MyUploadServlet;
 @WebServlet("/event/*")
 public class EventServlet extends MyUploadServlet{
 	private static final long serialVersionUID = 1L;
-	
+	 
 	private String pathname;
 	@Override
 	protected void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

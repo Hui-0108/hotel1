@@ -5,10 +5,45 @@ public class ClientDTO {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String credit;
 	private String region;
+	private String tel;
+	private String creditCorp;
+	private String creditNum;
+	private int creditYear;
+	private int creditMonth;
 	
-
+	
+	
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getCreditCorp() {
+		return creditCorp;
+	}
+	public void setCreditCorp(String creditCorp) {
+		this.creditCorp = creditCorp;
+	}
+	public String getCreditNum() {
+		return creditNum;
+	}
+	public void setCreditNum(String creditNum) {
+		this.creditNum = creditNum;
+	}
+	public int getCreditYear() {
+		return creditYear;
+	}
+	public void setCreditYear(int creditYear) {
+		this.creditYear = creditYear;
+	}
+	public int getCreditMonth() {
+		return creditMonth;
+	}
+	public void setCreditMonth(int creditMonth) {
+		this.creditMonth = creditMonth;
+	}
 	public int getClientNum() {
 		return clientNum;
 	}
@@ -33,12 +68,7 @@ public class ClientDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getCredit() {
-		return credit;
-	}
-	public void setCredit(String credit) {
-		this.credit = credit;
-	}
+
 	public String getRegion() {
 		return region;
 	}
