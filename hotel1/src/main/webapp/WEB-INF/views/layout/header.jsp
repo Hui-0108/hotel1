@@ -60,7 +60,7 @@ $(function(){
 	            <a href="${pageContext.request.contextPath}/qna/list.do">고객문의</a>
 	        </li>
 	        <li>
-	            <a href="${pageContext.request.contextPath}/promotion/promotionList.do">프로모션</a>
+	            <a href="${pageContext.request.contextPath}/pack/list.do">프로모션</a>
 	        </li>
 	    </ul>      
 	</div>
