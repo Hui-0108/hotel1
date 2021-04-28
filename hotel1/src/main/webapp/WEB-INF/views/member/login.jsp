@@ -7,11 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>로그인 | THE Ezo Hotels </title>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/style.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/layout.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
 
 <style type="text/css">
 .lbl {
@@ -27,11 +27,9 @@
   color:#333333;
   margin-top:5px; margin-bottom:5px;
   font-size:14px;
-  border-radius:4px;
+
 }
 </style>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resource/jquery/js/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resource/js/util.js"></script>
 <script type="text/javascript">
 function bgLabel(ob, id) {
     if(!ob.value) {
@@ -74,10 +72,17 @@ function sendLogin() {
 
 <div class="container">
 
-	    <div style="margin: 80px auto 70px; width:360px;">
-	    	<div style="text-align: center;">
-	        	<span style="font-weight: bold; font-size:27px; color: #424951;">회원 로그인</span>
+	    <div style="margin: 80px auto 70px; width:600px;">
+	    	<div style="text-align: left;" class="body-title">
+	        	<span style=" font-size:27px; color: #424951; font-family: 'Oswald', sans-serif;">회원 로그인</span>
 	        </div>
+	        
+	        <div style="text-align: center">
+	        <p style="text-align: center;  font-size: 23px;  margin-bottom: 5px; color: #b77d30;">호텔 이조에 오신 것을 환영합니다.</p>
+	        <p style="margin-bottom: 3px; color: #906935;">번호와 비밀번호를 입력해 주시기 바랍니다.</p>	
+	        <p style="font-size: 12px; margin-bottom: 5px;">※ 호텔 이조의 회원이되시면 회원만을 위한 다양한 서비스와 혜택을 받으실 수 있습니다.</p>	
+	        </div>
+	        
 	        
 			<form name="loginForm" method="post" action="">
 			  <table style="margin: 15px auto; width: 360px; border-spacing: 0px;">
@@ -105,13 +110,7 @@ function sendLogin() {
 			      </td>
 			  </tr>
 
-			  <tr align="center" height="45">
-			      <td>
-			       		<a href="${pageContext.request.contextPath}/">아이디찾기</a>&nbsp;&nbsp;&nbsp;
-			       		<a href="${pageContext.request.contextPath}/">패스워드찾기</a>&nbsp;&nbsp;&nbsp;
-			       		<a href="${pageContext.request.contextPath}/member/member.do">회원가입</a>
-			      </td>
-			  </tr>
+
 			  
 			  <tr align="center" height="40" >
 			    	<td><span style="color: #68461a;">${message}</span></td>
@@ -127,8 +126,7 @@ function sendLogin() {
 <div class="footer">
     <jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
 </div>
+<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp"/>
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/resource/jquery/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resource/jquery/js/jquery.ui.datepicker-ko.js"></script>
 </body>
 </html>

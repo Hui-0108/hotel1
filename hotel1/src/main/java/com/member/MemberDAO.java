@@ -19,8 +19,22 @@ public class MemberDAO {
 		try {
 			conn.setAutoCommit(false);
 			
-			sql = " INSERT INTO member1(userId, userPwd, createdDate, modifyDate ) "
-					+ " VALUES( ?, ?, SYSDATE, SYSDATE) ";
+			
+			sql= " INSERT INTO client (clientNum, firstName, lastName, email, tel) "
+					+ " VALUES(client_seq.NEXTVAL,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getFirstName());
+			pstmt.setString(2, dto.getLastName());
+			pstmt.setString(3, dto.getEmail());
+			pstmt.setString(4, dto.getTel());
+			result = pstmt.executeUpdate();
+			pstmt.close();
+			pstmt = null;
+			
+			
+			sql = " INSERT INTO member1(userId, userPwd, createdDate, modifyDate, clientNum ) "
+					+ " VALUES( ?, ?, SYSDATE, SYSDATE, client_seq.CURRVAL) ";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.getUserId());
@@ -30,26 +44,13 @@ public class MemberDAO {
 			pstmt = null;
 			
 			sql = " INSERT INTO member2(userId, birth, zip, addr1, addr2) "
-					+ " VALUES( ?, TO_DATE(?,'YYYYMMDD') , ?, ?,  ? )  ";
+					+ " VALUES( ?, TO_DATE(?,'YYYYMMDD') , ?, ?, ? )  ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getUserId());
 			pstmt.setString(2, dto.getBirth());
-			pstmt.setString(4, dto.getZip());
-			pstmt.setString(5, dto.getAddr1());
-			pstmt.setString(6, dto.getAddr2());
-			
-			result += pstmt.executeUpdate();
-			pstmt.close();
-			pstmt = null;
-			
-			sql= " INSERT INTO client (clientNum, firstName, lastName, email, tel)"
-					+ " VALUES(client_seq.NEXTVAL,?,?,?,?)";
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, dto.getFirstName());
-			pstmt.setString(2, dto.getLastName());
-			pstmt.setString(3, dto.getEmail());
-			pstmt.setString(3, dto.getTel());
+			pstmt.setString(3, dto.getZip());
+			pstmt.setString(4, dto.getAddr1());
+			pstmt.setString(5, dto.getAddr2());
 			
 			result += pstmt.executeUpdate();
 			
@@ -167,28 +168,26 @@ public class MemberDAO {
 			pstmt.close();
 			pstmt = null;
 			
-			sql = "UPDATE member2 SET birth=TO_DATE(?,'YYYYMMDD'), zip = ?, "
+			sql = "UPDATE member2 SET birth=TO_DATE(?,'YYYYMMDD'),  zip = ?, "
 					+ " addr1 = ?, addr2 = ? WHERE userId = ?  ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getBirth());
-			pstmt.setString(2, dto.getTel());
-			pstmt.setString(3, dto.getZip());
-			pstmt.setString(4, dto.getAddr1());
-			pstmt.setString(5, dto.getAddr2());
-			pstmt.setString(6, dto.getUserId());
+			pstmt.setString(2, dto.getZip());
+			pstmt.setString(3, dto.getAddr1());
+			pstmt.setString(4, dto.getAddr2());
+			pstmt.setString(5, dto.getUserId());
 			
 			result = pstmt.executeUpdate();
 			pstmt.close();
 			pstmt = null;
 			
-			sql = "UPDATE client SET firstName = ?, lastName = ?, email = ?, region = ?, tel = ? "
+			sql = "UPDATE client SET  email = ?, region = ?, tel = ? "
 					+ " WHERE clientNum = ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getFirstName());
-			pstmt.setString(2, dto.getLastName());
-			pstmt.setString(3, dto.getEmail());
-			pstmt.setString(5, dto.getTel());
-			pstmt.setInt(6, dto.getClientNum());
+			pstmt.setString(1, dto.getEmail());
+			pstmt.setString(2, dto.getRegion());
+			pstmt.setString(3, dto.getTel());
+			pstmt.setInt(4, dto.getClientNum());
 			
 			result += pstmt.executeUpdate();
 						

@@ -38,11 +38,13 @@ $(function(){
 	                <a class="member" href="${pageContext.request.contextPath}/member/member.do">회원가입</a>
 	            </c:if>
 	            <c:if test="${not empty sessionScope.member}">
-	                <span class="member" style="font-weight: bold;">${sessionScope.member.lastName}</span>님
+	                <span class="member" style="font-weight: bold;">${sessionScope.member.firstName}</span>님
 	                    <span class="member">&nbsp;|&nbsp;</span>
 	                    <a class="member" href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a>
 	                    <span class="member">&nbsp;|&nbsp;</span>
 	                    <a class="member" href="${pageContext.request.contextPath}/member/pwd.do?mode=update">마이페이지</a>
+	                    <span class="member">&nbsp;|&nbsp;</span>
+	                    <a class="member" href="${pageContext.request.contextPath}/member/pwd.do?mode=delete">회원 탈퇴</a>
 	            </c:if>
 	        </div>
 	    </div>
@@ -51,7 +53,7 @@ $(function(){
 	<div class="menu">
 	    <ul class="nav">
 	        <li>
-	            <a href="${pageContext.request.contextPath}/room/roomlist.do">예약하기</a>
+	            <a href="${pageContext.request.contextPath}/rr/list.do">예약하기</a>
 	        </li>	
 	        <li>
 	            <a href="${pageContext.request.contextPath}">예약확인</a>
@@ -60,7 +62,7 @@ $(function(){
 	            <a href="${pageContext.request.contextPath}/qna/list.do">고객문의</a>
 	        </li>
 	        <li>
-	            <a href="${pageContext.request.contextPath}/promotion/promotionList.do">프로모션</a>
+	            <a href="${pageContext.request.contextPath}/pack/list.do">프로모션</a>
 	        </li>
 	    </ul>      
 	</div>
