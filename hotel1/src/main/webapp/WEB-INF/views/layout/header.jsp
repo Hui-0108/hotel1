@@ -51,7 +51,7 @@ $(function(){
 	<div class="menu">
 	    <ul class="nav">
 	        <li>
-	            <a href="${pageContext.request.contextPath}/room/roomlist.do">예약하기</a>
+	            <a href="${pageContext.request.contextPath}/rr/list.do">예약하기</a>
 	        </li>	
 	        <li>
 	            <a href="${pageContext.request.contextPath}">예약확인</a>
