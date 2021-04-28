@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+.idTitle{
+	clear: both;
+	margin-bottom: 20px;
+}
+
+.tbName{
+    width: 120px;
+    background: #faf9f4;
+    line-height: 50px;
+    height: 50px;
+    padding-left: 15px;
+}
+
+.btnm{
+	background-color: #3a3125;
+	text-align:center;
+	padding:15px 20px 15px;
+	font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+	color:#ffffff;	
+	border:1px solid #3a3125;
+	cursor:pointer;
+	width: 150px;
+}
+
+.btnm:active, .btnm:focus, .btnm:hover {
+	background-color:#4e4335;
+	border-color: #4e4335;
+	color: #f0f0f0;		
+}
+
+.tbContent{
+	padding-left: 20px;
+}
+
+.body-container{
+	font-size: 13px;
+	
+}
+.memTable{
+	width: 100%;
+	margin-bottom: 40px;
+    border-top: #cdcbbe solid 1px;
+    border-bottom: #cdcbbe solid 1px;
+    border-collapse: collapse;
+}
+.basic-title{
+	margin-bottom: 20px;
+}
+.col{
+	border-bottom: #cdcbbe solid 1px;
+
+}
+
+.boxMem[readonly] {
+	background-color:#eeeeee;	
+}
