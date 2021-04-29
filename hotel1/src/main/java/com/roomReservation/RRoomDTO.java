@@ -1,20 +1,29 @@
 package com.roomReservation;
 
 public class RRoomDTO {
-	private int rorNum;
+	private String rorNum;
 	private int roomNum;
 	private int clientNum;
 	private int classNum;
+	private String className;
 	private String checkIn;
 	private String checkOut;
 	private int guestCount;
-	private int price;	// 결제금액
+	private int price; // 결제금액
 
-	public int getRorNum() {
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public String getRorNum() {
 		return rorNum;
 	}
 
-	public void setRorNum(int rorNum) {
+	public void setRorNum(String rorNum) {
 		this.rorNum = rorNum;
 	}
 

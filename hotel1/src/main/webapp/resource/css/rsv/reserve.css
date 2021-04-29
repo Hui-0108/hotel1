@@ -49,7 +49,7 @@ input[id="rsvCheck"] + label {
 	height: 24px;
 	cursor: pointer;
 	vertical-align: bottom;
-	background: url(${pageContext.request.contextPath}/resource/images/rsv/new_uiform.png) 0 -440px no-repeat;
+	background: url(../../images/rsv/new_uiform.png) 0 -440px no-repeat;
 }
 
 input[id="rsvCheck"]:checked + label {

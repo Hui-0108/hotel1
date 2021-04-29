@@ -11,10 +11,130 @@
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resource/css/rsv/reserve.css" type="text/css">
 <script type="text/javascript">
+function isValidEmail(data){
+    var format = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+    return format.test(data); // true : 올바른 포맷 형식
+}
+function isValidPhone(data) {
+    // var format = /^(\d+)-(\d+)-(\d+)$/;
+    var format=/^(01[016789])-[0-9]{3,4}-[0-9]{4}$/g;
+    return format.test(data);
+}
 function rsvSubmit() {
-	f = document.infoForm;
-	f.action="${pageContext.request.contextPath}/rr/reserve_ok.do";
-	f.submit();
+	var f = document.infoForm;
+	var str;
+	
+	str = f.firstName.value;
+
+	if(! /^[가-힣]{2,5}|[a-zA-z]{2,10}\s[a-zA-z]{2,10}$/.test(str)){
+		alert("이름을 정확히 입력해주세요.");
+			f.firstName.focus();
+			return;			
+	}
+	
+	str = f.lastName.value;
+ 
+	if(! /^[가-힣]{1}|[a-zA-z]{2,10}\s[a-zA-z]{2,10}$/.test(str)){
+		alert("성을 정확히 입력해주세요.");
+			f.lastName.focus();
+			return;			
+	}
+	
+	str = f.email.value;
+	if(! isValidEmail(str)){
+		alert("이메일을 정확히 입력해주세요.");
+		f.email.focus();
+		return;
+	}
+	
+	if(! f.region.value) {
+		alert("지역을 선택해주세요.");
+		f.region.focus();
+		return;
+	}
+	
+	str = f.tel.value;
+    if(! isValidPhone(str)) {
+        alert("연락처를 정확히 입력해주세요. ");
+        f.tel.focus();
+        return;
+    }
+    
+    if(! f.creditCorp.value) {
+    	alert("카드종류를 선택해주세요.");
+    	f.creditCorp.focus();
+    	return;
+    }
+    
+    if(! /^\d{4}$/.test(f.c1.value)) {
+    	alert("카드번호를 정확히 입력해주세요.");
+    	f.c1.focus();
+    	return;
+    }
+    
+    if(! /^\d{4}$/.test(f.c2.value)) {
+    	alert("카드번호를 정확히 입력해주세요.");
+    	f.c2.focus();
+    	return;
+    }
+    
+    if(! /^\d{4}$/.test(f.c3.value)) {
+    	alert("카드번호를 정확히 입력해주세요.");
+    	f.c3.focus();
+    	return;
+    }
+    
+    if(! /^\d{4}$/.test(f.c4.value)) {
+    	alert("카드번호를 정확히 입려해주세요.");
+    	f.c4.focus();
+    	return;
+    }
+    
+    if(! f.creditMonth.value) {
+    	alert("유효기간을 입력해주세요.");
+    	f.creditMonth.focus();
+    	return;
+    }
+    
+    if(! f.creditYear.value) {
+    	alert("유효기간을 입력해주세요.");
+    	f.creditYear.focus();
+    	return;
+    }
+    
+    if(! f.check.checked) {
+    	alert("유의사항, 취소 및 환불 규정을 모두 확인하고 동의해주세요.");
+    	return;
+    } 
+    
+	if(confirm("예약확인 : ${checkIn} ~ ${checkOut} ${nights}박")) {
+		f.action = "${pageContext.request.contextPath}/rr/reserve_ok.do";
+		f.submit();	
+	}
+}
+
+function loadMem() {
+	var f = document.infoForm;
+	var check = "${mdto.lastName}";
+	if( ! check ) {
+		f.mode.value = "memNone"		
+		return;
+	}
+	
+	f.mode.value = "mem";
+	f.lastName.value = "${mdto.lastName}";
+	f.firstName.value = "${mdto.firstName}";
+	f.email.value = "${mdto.email}";
+	f.tel.value = "${mdto.tel}";
+	
+	f.lastName.readOnly = true;
+	f.firstName.readOnly = true;
+	f.email.readOnly = true;
+	f.tel.readOnly = true;
+	
+}
+window.onload = function() {
+		loadMem();
 }
 </script>
 </head>
@@ -64,6 +184,7 @@ function rsvSubmit() {
         					<td>지역(여권기준)<span class="red">*</span></td>
         					<td> 
         						<select name="region" class="selectField">
+        							<option value="">선택</option>
         							<option>South Korea</option>
         							<option>Japan</option>
         							<option>China</option>
@@ -83,6 +204,7 @@ function rsvSubmit() {
         					<td>카드종류<span class="red">*</span></td>
         					<td> 
 	        					<select name="creditCorp" class="selectField">
+	        						<option value="">선택</option>
 	        						<option value="BC">BC CARD</option>
 	        						<option value="CITIBANK">CITIBANK CARD</option>
 	        						<option value="HUNDAI">HUNDAI CARD</option>
@@ -107,6 +229,7 @@ function rsvSubmit() {
         					<td>유효기간<span class="red">*</span></td>
         					<td>
         						<select name="creditMonth" class="selectField">
+        							<option value="">선택</option>
         							<option>01</option>
         							<option>02</option>
         							<option>03</option>
@@ -121,6 +244,7 @@ function rsvSubmit() {
         							<option>12</option>
         						</select>
         						<select name="creditYear" class="selectField">
+        							<option value="">선택</option>
         							<option>2031</option>
         							<option>2030</option>
         							<option>2029</option>
@@ -214,6 +338,12 @@ function rsvSubmit() {
         			<tr>
         				<td class="table-title" align="center"  style="background: #f1e3c4;">
         				<input name="check" id="rsvCheck" type="checkbox"><label for="rsvCheck"></label>
+        				<input name="mode" type="hidden">
+        				<input name="checkIn" type="hidden" value="${checkIn}">
+        				<input name="checkOut" type="hidden" value="${checkOut}">
+        				<input name="guestCount" type="hidden" value="${guestCount}">
+        				<input name="classNum" type="hidden" value="${classNum}">
+        				<input name="nights" type="hidden" value="${nights}">
         				 유의사항, 취소 및 환불 규정을 모두 확인했습니다.
         				</td> 
         			</tr>
