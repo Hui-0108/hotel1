@@ -29,7 +29,7 @@
             return;
         }
 
-    	f.action="${pageContext.request.contextPath}/board/${mode}_ok.do";
+    	f.action="${pageContext.request.contextPath}/qna/${mode}_ok.do";
 
         f.submit();
     }
