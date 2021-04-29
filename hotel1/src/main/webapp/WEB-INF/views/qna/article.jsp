@@ -30,8 +30,8 @@
 		<div class="sidemenu">
 			<h2>고객문의</h2>
 			<ul>
-				<li><a>F&Q</a></li>
-				<li><a>Q&A</a></li>
+				<li><a href="${pageContext.request.contextPath}/faq/list.do">F&Q</a></li>
+				<li><a href="${pageContext.request.contextPath}/qna/list.do">Q&A</a></li>
 			</ul>
 		</div>
 		<div class="body-container" style="width: 700px;">
