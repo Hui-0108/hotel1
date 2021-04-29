@@ -304,7 +304,6 @@ public class QnaDAO {
 				dto.setGroupNum(rs.getInt("groupNum"));
 				dto.setDepth(rs.getInt("depth"));
 				dto.setOrderNo(rs.getInt("orderNo"));
-				dto.setParent(rs.getInt("parent"));
 				
 				dto.setCreated(rs.getString("created"));
 				
