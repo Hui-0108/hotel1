@@ -61,9 +61,7 @@
 						<tr align="center" bgcolor="#ffffff" height="35"
 							style="border-bottom: 1px solid #f1e3c4;">
 							<td>${dto.listNum}</td>
-							<td align="left" style="padding-left: 10px;"><c:forEach
-									var="n" begin="1" end="${dto.depth }">&nbsp;&nbsp;
-								</c:forEach> <c:if test="${dto.depth!=0}">└&nbsp;</c:if> <a
+							<td align="left" style="padding-left: 10px;"><a
 								href="${articleUrl}&qNum=${dto.qNum}">${dto.subject}</a></td>
 							<td>${dto.nickname}</td>
 							<td>${dto.created}</td>

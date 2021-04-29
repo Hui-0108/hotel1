@@ -74,16 +74,6 @@
 						</tr>
 
 
-						<c:choose>
-							<c:when test="${mode=='reply'}">
-								<tr align="left" height="40">
-									<td width="100" bgcolor="#f1e3c4" style="text-align: center;">*&nbsp;
-										작성자</td>
-									<td style="padding-left: 10px;"><input type="text"
-										name="nickname" class="boxTF" style="width: 40%;" value="관리자"></td>
-								</tr>
-							</c:when>
-							<c:otherwise>
 								<tr align="left" height="40">
 									<td width="100" bgcolor="#f1e3c4" style="text-align: center;">*&nbsp;
 										작성자</td>
@@ -91,8 +81,6 @@
 										name="nickname" class="boxTF" style="width: 40%;"
 										value="${dto.nickname}"></td>
 								</tr>
-							</c:otherwise>
-						</c:choose>
 
 
 						<tr align="left" height="40">
@@ -111,11 +99,6 @@
 							</td>
 						</tr>
 
-						<c:choose>
-							<c:when test="${mode=='reply'}">
-
-							</c:when>
-							<c:otherwise>
 								<tr align="left" height="40">
 									<td width="100" bgcolor="#f1e3c4" style="text-align: center;">*&nbsp;
 										비밀번호</td>
@@ -134,8 +117,6 @@
 										name="subject" class="boxTF" style="width: 95%;"
 										value="${dto.email}"></td>
 								</tr>
-							</c:otherwise>
-						</c:choose>
 
 					</table>
 
