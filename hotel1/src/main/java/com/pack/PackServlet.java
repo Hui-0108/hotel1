@@ -117,7 +117,11 @@ public class PackServlet extends MyUploadServlet{
 			String filename = null;
 			Part p = req.getPart("selectFile");
 			Map<String, String> map = doFileUpload(p, pathname);
-			if(map!=null) {
+			if(map != null) {
+				filename = map.get("saveFilename");
+			}
+			
+			if(filename!=null) {
 				dto.setImageFilename(filename);
 				dao.insertPack(dto);
 			}

@@ -23,7 +23,8 @@ public class PackDAO {
 			sql ="INSERT ALL INTO pack (pkgNum, pkgName, content, startDate, endDate, summary, imageFilename) "
 					+ "VALUES (pack_seq.NEXTVAL, ?, ?, ?, ?, ?, ?) "
 					+ "INTO packPrice (pkgNum, deluxe, bDeluxe, gcDeluxe, ebDeluxe, egDeluxe, sSuite) "
-					+ "VALUES (pack_seq,CURRVAL, ?, ?, ?, ?, ?, ?)";
+					+ "VALUES (pack_seq.NEXTVAL, ?, ?, ?, ?, ?, ?) "
+					+ "SELECT * FROM dual";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -105,8 +106,9 @@ public class PackDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT pkgNum, pkgName, content, startDate, endDate, summary, imageFilename "
-					+ "FROM pack "
+			sql = "SELECT p.pkgNum, pkgName, content, startDate, endDate, summary, imageFilename, pp.deluxe "
+					+ "FROM pack p "
+					+ "JOIN packPrice pp ON p.pkgNum = pp.pkgNum "
 					+ "ORDER BY pkgNum DESC "
 					+ "OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
 			pstmt=conn.prepareStatement(sql);
@@ -124,6 +126,7 @@ public class PackDAO {
 				dto.setEndDate(rs.getString("endDate"));
 				dto.setsummary(rs.getString("summary"));
 				dto.setImageFilename(rs.getString("imageFilename"));
+				dto.setDeluxe(rs.getInt("deluxe"));
 				list.add(dto);
 			}
 		} catch (Exception e) {
@@ -153,11 +156,11 @@ public class PackDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT pkgNum, pkgName, content, startDate, endDate, summary, imageFilename, "
+			sql = "SELECT p.pkgNum, pkgName, content, startDate, endDate, summary, imageFilename, "
 					+ "pp.deluxe, pp.bDeluxe, pp.gcDeluxe, pp.ebDeluxe, pp.egDeluxe, pp.sSuite "
 					+ "FROM pack p "
 					+ "JOIN packPrice pp ON p.pkgNum = pp.pkgNum "
-					+ "WHERE pkgNum=?";
+					+ "WHERE p.pkgNum=?";
 			
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, pkgNum);

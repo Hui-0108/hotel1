@@ -31,20 +31,20 @@
         </div>
         
         <div>
-        	<table>
         		<c:forEach var="dto" items="${list}">
-	        		<tr>
-	        			<td rowspan="3"><img src="" width="270" height="150" style="margin: 0 40px 0 20px"></td>
-	        			<td><a href="${articleUrl}&num=${dto.eventNum}" style="font-size: 17px; color: #a1886f;">${dto.eventName}</a></td>
-	        		</tr>
-	        		<tr>
-	        			<td style="font-size: 14px">${dto.startDate}&nbsp;~&nbsp;${dto.endDate}</td>
-	        		</tr>
-	        		<tr>
-	        			<td style="font-size: 14px">${dto.summary}</td>
-	        		</tr>
+	        		<table style="border-bottom: 1px solid #eee; width: 100%; padding: 20px 0;">
+		        		<tr>
+		        			<td rowspan="3" width="320px"><img src="${pageContext.request.contextPath}/uploads/event/${dto.imageFilename}" width="270" height="150"></td>
+		        			<td style="padding-top: 20px;"><a href="${articleUrl}&eventNum=${dto.eventNum}" style="font-size: 17px; color: #a1886f;">${dto.eventName}</a></td>
+		        		</tr>
+		        		<tr>
+		        			<td style="font-size: 12px; padding-bottom: 10px; border-bottom: 1px dotted #aaa;">${dto.startDate}&nbsp;~&nbsp;${dto.endDate}</td>
+		        		</tr>
+		        		<tr>
+		        			<td style="font-size: 12px; padding-top: 10px;">${dto.summary}</td>
+		        		</tr>
+	        		</table>
         		</c:forEach>
-        	</table>
 	        <table style="width:100%; border-spacing:0px;">
 		        <tr height="50">
 			        <td align="center">
@@ -58,7 +58,11 @@
 			        	&nbsp;
 			      	</td>
 			      	<td align="right" width="50%">
-			          	<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/event/created.do';">이벤트작성</button>
+			      		<c:choose>
+				    		<c:when test="${sessionScope.member.userId=='admin'}">
+			          			<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/event/created.do';">이벤트작성</button>
+			          		</c:when>
+			          	</c:choose>
 			      	</td>
 			   	</tr>
 			</table>
