@@ -124,9 +124,7 @@ function changeEmail() {
         f.email2.readOnly = false;
         f.email1.focus();
     }
-	
 
-	
 }
 
 
