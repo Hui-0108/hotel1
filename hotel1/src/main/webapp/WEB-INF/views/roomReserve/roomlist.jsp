@@ -105,7 +105,7 @@ function reserveChange() {
         	<c:set var="url" value="/WEB-INF/views/roomReserve/de1.jsp"/>
         	<c:import var="info" url="${url}"/>
         	<c:out value="${info}" escapeXml="false"/>
-        </div>
+        </div >
         
 </div>
 
