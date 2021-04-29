@@ -25,6 +25,13 @@
 	</div>
 
 	<div class="container">
+		<div class="sidemenu">
+			<h2>제목</h2>
+		<ul>
+			<li><a>소제목</a></li>
+			<li><a>소제목</a></li>
+		</ul>
+		</div>
 		<div class="body-container" style="width: 700px;">
 			<div class="body-title" style="border-bottom: 1px solid #f1e3c4;">
 				<h3 style="border-bottom: 3px solid #f1e3c4;">QnA</h3>
@@ -54,10 +61,8 @@
 						<tr align="center" bgcolor="#ffffff" height="35"
 							style="border-bottom: 1px solid #f1e3c4;">
 							<td>${dto.listNum}</td>
-							<td align="left" style="padding-left: 10px;"><c:forEach
-									var="n" begin="1" end="${dto.depth }">&nbsp;&nbsp;
-								</c:forEach> <c:if test="${dto.depth!=0}">└&nbsp;</c:if> <a
-								href="${articleUrl}&qNum=${dto.qNum}">${dto.subject}</a></td>
+							<td align="left" style="padding-left: 10px;">
+							<a href="${articleUrl}&qNum=${dto.qNum}">${dto.subject}</a></td>
 							<td>${dto.nickname}</td>
 							<td>${dto.created}</td>
 

@@ -1,32 +1,32 @@
 package com.qna;
 
 public class QnaDTO {
-	private int qNum;				// QnA 글번호
 	private int listNum;
-	private String ctg;				// QnA 카테고리
-	private String nickname;		// 닉네임
-	private String subject;			// 제목
-	private String content;			// 내용
-	private String qPwd;			// 글에 들어가기 위한 비밀번호
-	private String email;			// 답변 알림을 받기 위한 이메일
-	private String created;			// 글작성일
+	private int qNum;
+	private String ctg;
+	private String nickname;
+	private String subject;
+	private String content;
+	private String qPwd;
+	private String email;
+	private String created;
 	
-	private int groupNum;			// 답변형 게시판 만들기
-	private int orderNo;
-	private int depth;
-	private int parent;
+	private String saveFilename;
+	private String originalFilename;
+	private long fileSize;
 	
-	public int getqNum() {
-		return qNum;
-	}
-	public void setqNum(int qNum) {
-		this.qNum = qNum;
-	}
+	
 	public int getListNum() {
 		return listNum;
 	}
 	public void setListNum(int listNum) {
 		this.listNum = listNum;
+	}
+	public int getqNum() {
+		return qNum;
+	}
+	public void setqNum(int qNum) {
+		this.qNum = qNum;
 	}
 	public String getCtg() {
 		return ctg;
@@ -70,30 +70,25 @@ public class QnaDTO {
 	public void setCreated(String created) {
 		this.created = created;
 	}
-	public int getGroupNum() {
-		return groupNum;
+	public String getSaveFilename() {
+		return saveFilename;
 	}
-	public void setGroupNum(int groupNum) {
-		this.groupNum = groupNum;
+	public void setSaveFilename(String saveFilename) {
+		this.saveFilename = saveFilename;
 	}
-	public int getOrderNo() {
-		return orderNo;
+	public String getOriginalFilename() {
+		return originalFilename;
 	}
-	public void setOrderNo(int orderNo) {
-		this.orderNo = orderNo;
+	public void setOriginalFilename(String originalFilename) {
+		this.originalFilename = originalFilename;
 	}
-	public int getDepth() {
-		return depth;
+	public long getFileSize() {
+		return fileSize;
 	}
-	public void setDepth(int depth) {
-		this.depth = depth;
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
 	}
-	public int getParent() {
-		return parent;
-	}
-	public void setParent(int parent) {
-		this.parent = parent;
-	}
-		
+	
+	
 	
 }

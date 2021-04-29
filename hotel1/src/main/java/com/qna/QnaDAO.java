@@ -10,44 +10,17 @@ import java.util.List;
 import com.util.DBConn;
 
 public class QnaDAO {
-	private Connection conn = DBConn.getConnection();
+	private Connection conn=DBConn.getConnection();
 	
-	public int insertQnA(QnaDTO dto, String mode) throws SQLException {
+	public int insertQnA(QnaDTO dto) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		String sql;
-		int seq;
 		
 		try {
-			sql="SELECT qna_seq.NEXTVAL FROM dual";
-			pstmt = conn.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			seq=0;
-			if(rs.next()) {
-				seq=rs.getInt(1);
-			}
-			rs.close();
-			pstmt.close();
-			rs=null;
-			pstmt=null;
-			
-			dto.setqNum(seq);
-			if(mode.equals("created")) {
-				dto.setGroupNum(seq);
-				dto.setOrderNo(0);
-				dto.setDepth(0);
-				dto.setParent(0);
-			} else if(mode.equals("reply")) {
-				//////////////////////////여기
-				
-				dto.setDepth(dto.getDepth()+1);
-				dto.setOrderNo(dto.getOrderNo()+1);
-			}
-			
 			sql = "INSERT INTO qna(qNum, ctg, nickname, subject, content, qPwd, email, created"
-					+ " , groupNum, depth, orderNo, parent)"
-					+ " VALUES (?,?,?,?,?,?,?,SYSDATE,?,?,?,?)";
+					+ " , saveFilename, originalFilename, filesize)"
+					+ " VALUES (?,?,?,?,?,?,?,SYSDATE,?,?,?)";
 			
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, dto.getqNum());
@@ -58,68 +31,38 @@ public class QnaDAO {
 			pstmt.setString(6, dto.getqPwd());
 			pstmt.setString(7, dto.getEmail());
 			
-			pstmt.setInt(8, dto.getGroupNum());
-			pstmt.setInt(9, dto.getDepth());
-			pstmt.setInt(10, dto.getOrderNo());
-			pstmt.setInt(11, dto.getParent());
+			pstmt.setString(8, dto.getSaveFilename());
+			pstmt.setString(9, dto.getOriginalFilename());
+			pstmt.setLong(10, dto.getFileSize());
 			
 			result=pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
-			if(pstmt!=null) {
+			if(pstmt!=null)
 				try {
 					pstmt.close();
 				} catch (SQLException e) {
 				}
-			}
-		}
-		
-		return result;
-	}
-	
-	public int updateOrderNo(int groupNum, int orderNo) throws SQLException {
-		int result = 0;
-		PreparedStatement pstmt=null;
-		String sql;
-		
-		sql = "UPDATE qna SET orderNo=orderNo+1 WHERE groupNum = ? AND orderNo > ?";
-		
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, groupNum);
-			pstmt.setInt(2, orderNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		}finally {
-			if(pstmt!=null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
+		} 
 		
 		return result;
 	}
 	
 	public int dataCount() {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		String sql;
 		
 		try {
-			sql = "SELECT NVL(COUNT(*), 0) FROM qna";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				result = rs.getInt(1);
-			}
+			sql="SELECT NVL(COUNT(*), 0) FROM qna";
+			pstmt=conn.prepareStatement(sql);
+			
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				result=rs.getInt(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -129,7 +72,7 @@ public class QnaDAO {
 				} catch (SQLException e) {
 				}
 			}
-			
+				
 			if(pstmt!=null) {
 				try {
 					pstmt.close();
@@ -137,8 +80,9 @@ public class QnaDAO {
 				}
 			}
 		}
-	
+		
 		return result;
+		
 	}
 	
 	public int dataCount(String condition, String keyword) {	// 검색!!! 여기 오류 난다!!!
@@ -202,7 +146,7 @@ public class QnaDAO {
 		try {
 			sql = "SELECT qNum, ctg, nickname, subject, content, qPwd, email, "
 					+ " TO_CHAR(created, 'YYYY-MM-DD') created, "
-					+ " groupNum, orderNo, depth"
+					+ " saveFilename "
 					+ " FROM qna"
 					+ " ORDER BY groupNum DESC, orderNo ASC "
 					+ " OFFSET ? ROWS FETCH FIRST? ROWS ONLY ";
@@ -223,10 +167,7 @@ public class QnaDAO {
 				dto.setqPwd(rs.getString("qPwd"));
 				dto.setEmail(rs.getString("email"));
 				dto.setCreated(rs.getString("created"));
-				
-				dto.setGroupNum(rs.getInt("groupNum"));
-				dto.setDepth(rs.getInt("depth"));
-				dto.setOrderNo(rs.getInt("orderNo"));
+				dto.setSaveFilename(rs.getString("saveFilename"));
 				
 				list.add(dto);
 			}
@@ -262,7 +203,7 @@ public class QnaDAO {
 		try {
 			sql = "SELECT qNum, ctg, nickname, subject, content, qPwd, email, "
 					+ " TO_CHAR(created, 'YYYY-MM-DD') created,"
-					+ " groupNum, depth, orderNo "
+					+ " saveFilename "
 					+ " FROM qna";
 			//////////////////////////////////////////////////////여기!! 검색하는 데!!!!
 			if(condition.equals("created")) {
@@ -301,11 +242,9 @@ public class QnaDAO {
 				dto.setqPwd(rs.getString("qPwd"));
 				dto.setEmail(rs.getString("email"));
 				
-				dto.setGroupNum(rs.getInt("groupNum"));
-				dto.setDepth(rs.getInt("depth"));
-				dto.setOrderNo(rs.getInt("orderNo"));
-				
 				dto.setCreated(rs.getString("created"));
+				
+				dto.setSaveFilename(rs.getString("saveFilename"));
 				
 				list.add(dto);
             }
@@ -330,7 +269,7 @@ public class QnaDAO {
         
         return list;
 	}
-		
+	
 	public QnaDTO readQnA(int qNum) {
 		QnaDTO dto = null;
 		PreparedStatement pstmt = null;
@@ -339,7 +278,7 @@ public class QnaDAO {
 		
 		try {
 			sql = "SELECT qNum, ctg, nickname, subject, content, qPwd, email, created, "
-					+ " groupNum, depth, orderNo, parent "
+					+ " saveFilename,originalFilename, filesize "
 					+ " FROM qna"
 					+ " WHERE qNum=?";
 			pstmt = conn.prepareStatement(sql);
@@ -356,10 +295,10 @@ public class QnaDAO {
 				dto.setqPwd(rs.getString("qNum"));
 				dto.setEmail(rs.getString("email"));
 				dto.setCreated(rs.getString("created"));
-				dto.setGroupNum(rs.getInt("groupNum"));
-				dto.setDepth(rs.getInt("depth"));
-				dto.setOrderNo(rs.getInt("orderNo"));
-				dto.setParent(rs.getInt("parent"));
+				
+				dto.setSaveFilename(rs.getString("saveFilename"));
+				dto.setOriginalFilename(rs.getString("originalFilename"));
+				dto.setFileSize(rs.getLong("filesize"));
 			}
 			
 		} catch (SQLException e) {
@@ -383,12 +322,12 @@ public class QnaDAO {
 		return dto;
 	}
 	
-	public int updateQnA(QnaDTO dto, String qPwd) throws SQLException {
+	public int updateQnA(QnaDTO dto) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
 		
-		sql="UPDATE qna SET ctg=?, subject=?, content=?, email=? "
+		sql="UPDATE qna SET ctg=?, subject=?, content=?, email=?, saveFilename=?, originalFilename=?, filesize=? "
 				+ " WHERE qNum=? "; 	////// 여기
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -396,6 +335,10 @@ public class QnaDAO {
 			pstmt.setString(2, dto.getSubject());
 			pstmt.setString(3, dto.getContent());
 			pstmt.setString(4, dto.getEmail());
+			pstmt.setString(5, dto.getSaveFilename());
+			pstmt.setString(6, dto.getOriginalFilename());
+			pstmt.setLong(7, dto.getFileSize());
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -436,7 +379,6 @@ public class QnaDAO {
 		
 		return result;
 	}
-	
 	
 	
 }
