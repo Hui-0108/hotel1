@@ -3,8 +3,10 @@ package com.faq;
 public class FnqDTO {
 	private int num, faqnum;
 	private String ctg;
+	private String userId;
 	private String subject;
 	private String content;
+	private String created;
 	private int hitCount;
 	
 	public int getNum() {
@@ -25,6 +27,12 @@ public class FnqDTO {
 	public void setCtg(String ctg) {
 		this.ctg = ctg;
 	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getSubject() {
 		return subject;
 	}
@@ -36,6 +44,12 @@ public class FnqDTO {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getCreated() {
+		return created;
+	}
+	public void setCreated(String created) {
+		this.created = created;
 	}
 	public int getHitCount() {
 		return hitCount;
