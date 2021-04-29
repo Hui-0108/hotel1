@@ -107,18 +107,45 @@ public class PackServlet extends MyUploadServlet{
 			dto.setStartDate(req.getParameter("startDate"));
 			dto.setEndDate(req.getParameter("endDate"));
 			dto.setsummary(req.getParameter("summary"));
+			if(req.getParameter("deluxe")!=null && req.getParameter("deluxe").length()!=0) {
 			dto.setDeluxe(Integer.parseInt(req.getParameter("deluxe")));
+			}
+			if(req.getParameter("bDeluxe")!=null && req.getParameter("bDeluxe").length()!=0) {
 			dto.setbDeluxe(Integer.parseInt(req.getParameter("bDeluxe")));
+			}
+			if(req.getParameter("gcDeluxe")!=null && req.getParameter("gcDeluxe").length()!=0) {
 			dto.setGcDeluxe(Integer.parseInt(req.getParameter("gcDeluxe")));
+			}
+			if(req.getParameter("ebDeluxe")!=null && req.getParameter("ebDeluxe").length()!=0) {
 			dto.setEbDeluxe(Integer.parseInt(req.getParameter("ebDeluxe")));
+			}
+			if(req.getParameter("egDeluxe")!=null && req.getParameter("egDeluxe").length()!=0) {
 			dto.setEgDeluxe(Integer.parseInt(req.getParameter("egDeluxe")));
+			}
+			if(req.getParameter("sSuite")!=null && req.getParameter("sSuite").length()!=0) {
 			dto.setsSuite(Integer.parseInt(req.getParameter("sSuite")));
+			}
 			
 			String filename = null;
 			Part p = req.getPart("selectFile");
 			Map<String, String> map = doFileUpload(p, pathname);
-			if(map!=null) {
+			if(map != null) {
+				filename = map.get("saveFilename");
+			}
+			
+			if(filename!=null) {
 				dto.setImageFilename(filename);
+			}
+			
+			String thumbnail = null;
+			p = req.getPart("thumbnail");
+			map = doFileUpload(p, pathname);
+			if(map != null) {
+				thumbnail = map.get("saveFilename");
+			}
+			
+			if(thumbnail!=null) {
+				dto.setThumbnail(thumbnail);
 				dao.insertPack(dto);
 			}
 		} catch (Exception e) {
@@ -219,12 +246,35 @@ public class PackServlet extends MyUploadServlet{
 				dto.setImageFilename(filename);
 			}
 			
-			dto.setDeluxe(Integer.parseInt(req.getParameter("deluxe")));
-			dto.setbDeluxe(Integer.parseInt(req.getParameter("bDeluxe")));
-			dto.setGcDeluxe(Integer.parseInt(req.getParameter("gcDeluxe")));
-			dto.setEbDeluxe(Integer.parseInt(req.getParameter("ebDeluxe")));
-			dto.setEgDeluxe(Integer.parseInt(req.getParameter("egDeluxe")));
-			dto.setsSuite(Integer.parseInt(req.getParameter("sSuite")));
+			String thumbnail=req.getParameter("thumbnail");
+			dto.setThumbnail(thumbnail);
+			
+			p = req.getPart("thumbnail");
+			map = doFileUpload(p, pathname);
+			if(map!=null) {
+				String filename = map.get("saveFilename");
+				FileManager.doFiledelete(pathname, thumbnail);
+				dto.setThumbnail(filename);
+			}
+			
+			if(req.getParameter("deluxe")!=null && req.getParameter("deluxe").length()!=0) {
+				dto.setDeluxe(Integer.parseInt(req.getParameter("deluxe")));
+				}
+				if(req.getParameter("bDeluxe")!=null && req.getParameter("bDeluxe").length()!=0) {
+				dto.setbDeluxe(Integer.parseInt(req.getParameter("bDeluxe")));
+				}
+				if(req.getParameter("gcDeluxe")!=null && req.getParameter("gcDeluxe").length()!=0) {
+				dto.setGcDeluxe(Integer.parseInt(req.getParameter("gcDeluxe")));
+				}
+				if(req.getParameter("ebDeluxe")!=null && req.getParameter("ebDeluxe").length()!=0) {
+				dto.setEbDeluxe(Integer.parseInt(req.getParameter("ebDeluxe")));
+				}
+				if(req.getParameter("egDeluxe")!=null && req.getParameter("egDeluxe").length()!=0) {
+				dto.setEgDeluxe(Integer.parseInt(req.getParameter("egDeluxe")));
+				}
+				if(req.getParameter("sSuite")!=null && req.getParameter("sSuite").length()!=0) {
+				dto.setsSuite(Integer.parseInt(req.getParameter("sSuite")));
+				}
 			
 			dao.updatePack(dto);
 			dao.updatePackPrice(dto);
@@ -257,6 +307,7 @@ public class PackServlet extends MyUploadServlet{
 			}
 			
 			FileManager.doFiledelete(pathname, dto.getImageFilename());
+			FileManager.doFiledelete(pathname, dto.getThumbnail());
 			dao.deletePack(pkgNum);
 		} catch (Exception e) {
 			e.printStackTrace();
