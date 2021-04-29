@@ -339,7 +339,7 @@ public class QnaServlet extends HttpServlet {
 	protected void replySubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String cp=req.getContextPath();
 		if(req.getMethod().equalsIgnoreCase("GET")) {
-			resp.sendRedirect(cp+"/board/list.do");
+			resp.sendRedirect(cp+"/qna/list.do");
 			return;
 		}
 		
