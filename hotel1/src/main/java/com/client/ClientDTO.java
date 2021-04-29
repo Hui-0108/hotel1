@@ -9,11 +9,21 @@ public class ClientDTO {
 	private String tel;
 	private String creditCorp;
 	private String creditNum;
-	private int creditYear;
-	private int creditMonth;
+	private String creditYear;
+	private String creditMonth;
 	
-	
-	
+	public String getCreditYear() {
+		return creditYear;
+	}
+	public void setCreditYear(String creditYear) {
+		this.creditYear = creditYear;
+	}
+	public String getCreditMonth() {
+		return creditMonth;
+	}
+	public void setCreditMonth(String creditMonth) {
+		this.creditMonth = creditMonth;
+	}
 	public String getTel() {
 		return tel;
 	}
@@ -32,18 +42,7 @@ public class ClientDTO {
 	public void setCreditNum(String creditNum) {
 		this.creditNum = creditNum;
 	}
-	public int getCreditYear() {
-		return creditYear;
-	}
-	public void setCreditYear(int creditYear) {
-		this.creditYear = creditYear;
-	}
-	public int getCreditMonth() {
-		return creditMonth;
-	}
-	public void setCreditMonth(int creditMonth) {
-		this.creditMonth = creditMonth;
-	}
+
 	public int getClientNum() {
 		return clientNum;
 	}
