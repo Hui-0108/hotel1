@@ -79,9 +79,9 @@ function reserveChange() {
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
 
- <div class="body-container" style="width: 700px;">
+ 
         <div class="body-title">
-            <h3><i class="fas fa-chalkboard"></i> 다이닝 예약</h3>
+            <h3><i class="fas fa-chalkboard"></i> 객실 예약</h3>
         </div>
         
         <div class="tob-box">
@@ -89,29 +89,23 @@ function reserveChange() {
 	        	<span class="hotel-name">
 	        		서울신라호텔
 	        	</span>
-        	
-        		<span>
-		        	<select name="reserveNum" onchange="reserveChange()" class="selectField">
-		        		<option value="">다이닝 선택</option>
-		        		<option value="1" ${reserveNum=="1"?"selected='selected'":"" }>라연</option>
-		        		<option value="2" ${reserveNum=="2"?"selected='selected'":"" }>아리아께</option>
-		        		<option value="3" ${reserveNum=="3"?"selected='selected'":"" }>더 파크뷰</option>
-		        		<option value="4" ${reserveNum=="4"?"selected='selected'":"" }>팔선</option>
-		       			<option value="5" ${reserveNum=="5"?"selected='selected'":"" }>콘티넨탈</option>
-		        	</select>
-				</span>
-				<span>        	
-	        		<button type="button" onclick="" class="btn"> 예약하기 </button>
-	        	</span>
+	        	<div align="right">
+        	<button type="button"  onclick="" class="btn"> 예약하기 </button>
+	        </div>
+	        
 	        </form>
         </div>
-        
+        <span class="room-name">
+	        		디럭스룸
+	        	</span>
+       
+        <div align="center"  >
+	 
         <div class="body-box">
-        	<c:set var="url" value="/WEB-INF/views/diningReserve/re${reserveNum}.jsp"/>
+        	<c:set var="url" value="/WEB-INF/views/roomReserve/de1.jsp"/>
         	<c:import var="info" url="${url}"/>
         	<c:out value="${info}" escapeXml="false"/>
         </div>
-        
         
 </div>
 
