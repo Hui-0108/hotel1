@@ -7,6 +7,7 @@ public class PackDTO {
 	private String startDate;
 	private String endDate;
 	private String summary;
+	private String thumbnail;
 	private String imageFilename;
 	private int deluxe;
 	private int bDeluxe;
@@ -15,6 +16,12 @@ public class PackDTO {
 	private int egDeluxe;
 	private int sSuite;
 	
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 	public int getPkgNum() {
 		return pkgNum;
 	}

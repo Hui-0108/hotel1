@@ -109,7 +109,11 @@ public class EventServlet extends MyUploadServlet{
 			String filename = null;
 			Part p = req.getPart("selectFile");
 			Map<String, String> map = doFileUpload(p, pathname);
-			if(map!=null) {
+			if(map != null) {
+				filename = map.get("saveFilename");
+			}
+			
+			if(filename!=null) {
 				dto.setImageFilename(filename);
 				dao.insertEvent(dto);
 			}
@@ -126,7 +130,7 @@ public class EventServlet extends MyUploadServlet{
 		
 		try {
 			int eventNum = Integer.parseInt(req.getParameter("eventNum"));
-			
+			 
 			EventDTO dto = dao.readEvent(eventNum);
 			
 			if(dto==null) {
