@@ -1,0 +1,113 @@
+@charset "UTF-8";
+.body-container {
+	padding: 0;
+}
+
+.body-content form {
+	font-family: "Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+	font-size: 16px;
+	border: 1px solid #cfcfcf;
+}
+
+
+.body-content form .right, .left {
+	float: left;
+	width: 50%;
+}
+
+form ul {
+	list-style: none;
+}
+
+form ul li {
+	padding-left: 15px;
+	margin-top: 7px;
+}
+
+form .table-title {
+	height: 45px;
+	padding: 0 10px 0 10px;
+	background: #f0f0f0;
+}
+
+form .table-title li{
+	font-size: 110%;
+}
+
+.hotel, .conv ,.refund {
+	color: #707070;
+	font-size: 80%;
+}
+
+.left table, .right table, .left > ul, .right > ul, .refund {
+	padding: 5px 10px;
+}
+
+input[id="rsvCheck"] + label {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	vertical-align: bottom;
+	background: url(${pageContext.request.contextPath}/resource/images/rsv/new_uiform.png) 0 -440px no-repeat;
+}
+
+input[id="rsvCheck"]:checked + label {
+	background-position: 0 -464px;
+}
+
+input[id="rsvCheck"] {
+	display: none;
+}
+
+form[name="infoForm"] {
+	margin-bottom: 30px;
+}
+
+.info-left tr td, .info-right tr td{
+	height: 45px;
+}
+
+.info-left tr td:first-child, .info-right tr td:first-child {
+	width: 125px;
+}
+
+input[name=firstName], input[name=lastName] {
+	width: 196px;
+}
+
+input[name=email], input[name=tel]  {
+	width: 408px;
+	text-align: center;
+}
+
+select[name=region], select[name=creditCorp] {
+	width: 420px;
+}
+
+input[name=c1], input[name=c2], input[name=c3], input[name=c4] {
+	width: 80px;
+	text-align: center;
+}
+
+select[name=creditYear], select[name=creditMonth] {
+	width: 208px;
+}
+
+.red {
+	color:red;
+	margin-left: 10px;
+}
+
+.btns {
+	width: 100%;
+	text-align: center;
+}
+
+.btns > button {
+	margin: 10px 0;
+}
+
+.btnConfirm:hover {
+	cursor: pointer;
+}

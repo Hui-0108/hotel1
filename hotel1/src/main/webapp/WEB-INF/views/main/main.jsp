@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>HOTEL EZO</title>
+<title>The HOTEL EZO</title>
 <jsp:include page="/WEB-INF/views/layout/staticHeader.jsp"/>
 
 </head>
