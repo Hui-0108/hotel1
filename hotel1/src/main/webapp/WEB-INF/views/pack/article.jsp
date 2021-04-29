@@ -57,12 +57,6 @@ function deletePack(pkgNum) {
 						${dto.pkgName}
 				    </td>
 				</tr>
-	
-				<tr>
-					<td colspan="2" align="left" style="padding: 10px 5px;">
-				   		<img src="${pageContext.request.contextPath}/uploads/pack/${dto.imageFilename}" style="width:100%; height:auto; resize:both;">
-				   	</td>
-				</tr>
 						
 				<tr>
 					<td colspan="2" align="left" style="padding: 10px 5px 10px;">
@@ -74,65 +68,82 @@ function deletePack(pkgNum) {
 			</table>
 			
 			<table border="1" style="border: 1px solid #cdcbbe; border-right: none; border-left: none; border-collapse: collapse; width: 100%">
+				<c:if test="${dto.deluxe!=null && dto.deluxe!=''}">
+					<tr>
+						<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">디럭스 룸</td>
+						<td style="padding-left: 50px;">
+							<b style="font-size: 14px;">${dto.deluxe}원 ~</b>
+							<ul style="font-size: 13px; list-style: none;">
+								<li><br>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
+							</ul>
+						</td>
+					</tr>
+				</c:if>
+				<c:if test="${dto.bDeluxe!=null && dto.bDeluxe!=''}">
+					<tr>
+						<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">비즈니스 디럭스 룸</td>
+						<td style="padding-left: 50px;">
+							<b style="font-size: 14px;">${dto.bDeluxe}원 ~</b>
+							<ul style="font-size: 13px; list-style: none;">
+								<li><br>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
+							</ul>
+						</td>
+					</tr>
+				</c:if>
+				<c:if test="${dto.gcDeluxe!=null && dto.gcDeluxe!=''}">
+					<tr>
+						<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">그랜드 코너 디럭스 룸</td>
+						<td style="padding-left: 50px;">
+							<b style="font-size: 14px;">${dto.gcDeluxe}원 ~</b>
+							<ul style="font-size: 13px; list-style: none;">
+								<li><br>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
+							</ul>
+						</td>
+					</tr>
+				</c:if>
+				<c:if test="${dto.ebDeluxe!=null && dto.ebDeluxe!=''}">
+					<tr>
+						<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">이그제큐티브<br>비즈니스 디럭스 룸</td>
+						<td style="padding-left: 50px;">
+							<b style="font-size: 14px;">${dto.ebDeluxe}원 ~</b>
+							<ul style="font-size: 13px; list-style: none;">
+								<li><br>· 더 이그제큐티브 라운지 혜택(2인)</li>
+								<li>· 실내 사우나 혜택(2인)</li>
+								<li>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
+							</ul>
+						</td>
+					</tr>
+				</c:if>
+				<c:if test="${dto.egDeluxe!=null && dto.egDeluxe!=''}">
+					<tr>
+						<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">이그제큐티브<br>그랜드 디럭스 룸</td>
+						<td style="padding-left: 50px;">
+							<b style="font-size: 14px;">${dto.egDeluxe}원 ~</b>
+							<ul style="font-size: 13px; list-style: none;">
+								<li><br>· 더 이그제큐티브 라운지 혜택(2인)</li>
+								<li>· 실내 사우나 혜택(2인)</li>
+								<li>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
+							</ul>
+						</td>
+					</tr>
+				</c:if>
+				<c:if test="${dto.sSuite!=null && dto.sSuite!=''}">
+					<tr>
+						<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">수페리어 스위트</td>
+						<td style="padding-left: 50px;">
+							<b style="font-size: 14px;">${dto.sSuite}원 ~</b>
+							<ul style="font-size: 13px; list-style: none;">
+								<li><br>· 더 이그제큐티브 라운지 혜택(2인)</li>
+								<li>· 실내 사우나 혜택(2인)</li>
+								<li>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
+							</ul>
+						</td>
+					</tr>
+				</c:if>
 				<tr>
-					<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">디럭스 룸</td>
-					<td style="padding-left: 50px;">
-						<b style="font-size: 14px;">${dto.deluxe}원 ~</b>
-						<ul style="font-size: 13px; list-style: none;">
-							<li><br>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
-						</ul>
-					</td>
-				</tr>
-				<tr>
-					<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">비즈니스 디럭스 룸</td>
-					<td style="padding-left: 50px;">
-						<b style="font-size: 14px;">${dto.bDeluxe}원 ~</b>
-						<ul style="font-size: 13px; list-style: none;">
-							<li><br>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
-						</ul>
-					</td>
-				</tr>
-				<tr>
-					<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">그랜드 코너 디럭스 룸</td>
-					<td style="padding-left: 50px;">
-						<b style="font-size: 14px;">${dto.gcDeluxe}원 ~</b>
-						<ul style="font-size: 13px; list-style: none;">
-							<li><br>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
-						</ul>
-					</td>
-				</tr>
-				<tr>
-					<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">이그제큐티브<br>비즈니스 디럭스 룸</td>
-					<td style="padding-left: 50px;">
-						<b style="font-size: 14px;">${dto.ebDeluxe}원 ~</b>
-						<ul style="font-size: 13px; list-style: none;">
-							<li><br>· 더 이그제큐티브 라운지 혜택(2인)</li>
-							<li>· 실내 사우나 혜택(2인)</li>
-							<li>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
-						</ul>
-					</td>
-				</tr>
-				<tr>
-					<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">이그제큐티브<br>그랜드 디럭스 룸</td>
-					<td style="padding-left: 50px;">
-						<b style="font-size: 14px;">${dto.egDeluxe}원 ~</b>
-						<ul style="font-size: 13px; list-style: none;">
-							<li><br>· 더 이그제큐티브 라운지 혜택(2인)</li>
-							<li>· 실내 사우나 혜택(2인)</li>
-							<li>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
-						</ul>
-					</td>
-				</tr>
-				<tr>
-					<td style="background: #faf9f4; width: 200px; height: 120px; color: #856f56; font-weight: bold; text-align: center;">수페리어 스위트</td>
-					<td style="padding-left: 50px;">
-						<b style="font-size: 14px;">${dto.sSuite}원 ~</b>
-						<ul style="font-size: 13px; list-style: none;">
-							<li><br>· 더 이그제큐티브 라운지 혜택(2인)</li>
-							<li>· 실내 사우나 혜택(2인)</li>
-							<li>· 체련장(Gym), 실내 수영장 혜택(2인)</li>
-						</ul>
-					</td>
+					<td colspan="2" align="left" style="padding: 10px 5px;">
+				   		<img src="${pageContext.request.contextPath}/uploads/pack/${dto.imageFilename}" style="width:100%; height:auto; resize:both;">
+				   	</td>
 				</tr>
 			</table>
 			

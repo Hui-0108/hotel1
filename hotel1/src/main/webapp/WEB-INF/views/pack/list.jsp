@@ -34,14 +34,35 @@
             <c:forEach var="dto" items="${list}">
 	        		<table style="border-bottom: 1px solid #eee; width: 100%; padding: 20px 0;">
 		        		<tr>
-		        			<td rowspan="3" width="320px"><img src="${pageContext.request.contextPath}/uploads/pack/${dto.imageFilename}" width="270" height="150"></td>
+		        			<td rowspan="3" width="320px"><img src="${pageContext.request.contextPath}/uploads/pack/${dto.thumbnail}" width="270" height="150"></td>
 		        			<td style="padding-top: 20px;"><a href="${articleUrl}&pkgNum=${dto.pkgNum}" style="font-size: 17px; color: #a1886f;">${dto.pkgName}</a></td>
 		        		</tr>
 		        		<tr>
 		        			<td style="font-size: 12px; padding-bottom: 10px; border-bottom: 1px dotted #aaa;">${dto.startDate}&nbsp;~&nbsp;${dto.endDate}</td>
 		        		</tr>
 		        		<tr>
-		        			<td style="font-size: 12px; padding-top: 10px;">${dto.summary}<br><br>${dto.deluxe}원 ~ </td>
+		        			<td style="font-size: 12px; padding-top: 10px;">${dto.summary}<br><br>
+								<c:choose>
+									<c:when test="${dto.deluxe!=null && dto.deluxe!=''}">
+										${dto.deluxe}원 ~
+									</c:when>
+									<c:when test="${dto.bDeluxe!=null && dto.bDeluxe!=''}">
+										${dto.bDeluxe}원 ~
+									</c:when>
+									<c:when test="${dto.gcDeluxe!=null && dto.gcDeluxe!=''}">
+										${dto.gcDeluxe}원 ~
+									</c:when>
+									<c:when test="${dto.ebDeluxe!=null && dto.ebDeluxe!=''}">
+										${dto.ebDeluxe}원 ~
+									</c:when>
+									<c:when test="${dto.egDeluxe!=null && dto.egDeluxe!=''}">
+										${dto.egDeluxe}원 ~
+									</c:when>
+									<c:when test="${dto.sSuite!=null && dto.sSuite!=''}">
+										${dto.sSuite}원 ~
+									</c:when>
+								</c:choose>
+							</td>
 		        		</tr>
 	        		</table>
         		</c:forEach>

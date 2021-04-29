@@ -35,12 +35,6 @@ function register() {
 	if(!str) {
 		f.summary.focus();
 	}
-	
-    str = f.selectFile.value;
-    if(!str) {
-    	f.selectFile.focus();
-    	return;
-    }
     
     var mode = "${mode}";
     if( mode=="created" || (mode=="update" && f.selectFile.value != "") ) {

@@ -38,88 +38,60 @@ function register() {
 	}
 	
 	str = f.deluxe.value;
-	if(!str){
-		f.deluxe.focus();
-		return;
-	}
-	
-	if(!/\d/.test(str)){
+	if(!/\d{0,7}/.test(str)){
 		alert("숫자만 입력 가능");
 		f.deluxe.focus();
 		return;
 	}
 	
 	str = f.bDeluxe.value;
-	if(!str){
-		f.bDeluxe.focus();
-		return;
-	}
-	
-	if(!/\d/.test(str)){
+	if(!/\d{0,7}/.test(str)){
 		alert("숫자만 입력 가능");
 		f.bDeluxe.focus()
 		return;
 	}
 	
 	str = f.gcDeluxe.value;
-	if(!str){
-		f.gcDeluxe.focus();
-		return;
-	}
-	
-	if(!/\d/.test(str)){
+	if(!/\d{0,7}/.test(str)){
 		alert("숫자만 입력 가능");
 		f.gcDeluxe.focus();
 		return;
 	}
 	
 	str = f.ebDeluxe.value;
-	if(!str){
-		f.ebDeluxe.focus();
-		return;
-	}
-	
-	if(!/\d/.test(str)){
+	if(!/\d{0,7}/.test(str)){
 		alert("숫자만 입력 가능");
 		f.ebDeluxe.focus();
 		return;
 	}
 	
 	str = f.egDeluxe.value;
-	if(!str){
-		f.egDeluxe.focus();
-		return;
-	}
-	
-	if(!/\d/.test(str)){
+	if(!/\d{0,7}/.test(str)){
 		alert("숫자만 입력 가능");
 		f.egDeluxe.focus();
 		return;
 	}
 	
 	str = f.sSuite.value;
-	if(!str){
-		f.sSuite.focus();
-		return;
-	}
-	
-	if(!/\d/.test(str)){
+	if(!/\d{0,7}/.test(str)){
 		alert("숫자만 입력 가능");
 		f.sSuite.focus();
 		return;
 	}
-	
-    str = f.selectFile.value;
-    if(!str) {
-    	f.selectFile.focus();
-    	return;
-    }
     
     var mode = "${mode}";
     if( mode=="created" || (mode=="update" && f.selectFile.value != "") ) {
     	if(! /(\.gif|\.jpg|\.png|\.jpeg)$/i.test(f.selectFile.value)) {
     		alert("이미지 파일만 가능합니다.");
     		f.selectFile.focus();
+    		return;
+    	}
+    }
+    
+    if( mode=="created" || (mode=="update" && f.thumbnail.value != "") ) {
+    	if(! /(\.gif|\.jpg|\.png|\.jpeg)$/i.test(f.thumbnail.value)) {
+    		alert("이미지 파일만 가능합니다.");
+    		f.thumbnail.focus();
     		return;
     	}
     }
@@ -224,6 +196,14 @@ function register() {
 						</td>
 					</tr>
 					
+					<tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
+						<td width="100" bgcolor="#fff3e0" style="text-align: center;">썸네일</td>
+						<td style="padding-left:10px;" colspan="3"> 
+						<input type="file" name="thumbnail" accept="image/*"
+						class="boxTF" size="53" style="height: 25px;">
+						</td>
+					</tr>
+					
 					<c:if test="${mode=='update'}">
 						<tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
 							<td width="100" bgcolor="#fff3e0" style="text-align: center;">등록이미지</td>
@@ -232,7 +212,15 @@ function register() {
 							width="30" height="30" border="0" style="vertical-align: middle;" >
 							<span style="vertical-align: middle; font-size: 11px; color: #333;">(새로운 이미지가 등록되면 기존 이미지는 삭제 됩니다.)</span>
 							</td>
-						</tr> 
+						</tr>
+						<tr align="left" height="40" style="border-bottom: 1px solid #cccccc;">
+							<td width="100" bgcolor="#fff3e0" style="text-align: center;">등록썸네일</td>
+							<td style="padding-left:10px;"> 
+							<img src="${pageContext.request.contextPath}/uploads/pack/${dto.thumbnail}"
+							width="30" height="30" border="0" style="vertical-align: middle;" >
+							<span style="vertical-align: middle; font-size: 11px; color: #333;">(새로운 이미지가 등록되면 기존 이미지는 삭제 됩니다.)</span>
+							</td>
+						</tr>  
 					</c:if>			  
 				</table>
 							  			
@@ -243,8 +231,9 @@ function register() {
 							<button type="reset" class="btn">다시입력</button>
 							<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/pack/list.do';">${mode=='update'?'수정취소':'등록취소'}</button>
 							<c:if test="${mode=='update'}">
-								<input type="hidden" name="eventNum" value="${dto.pkgNum}">
+								<input type="hidden" name="pkgNum" value="${dto.pkgNum}">
 								<input type="hidden" name="imageFilename" value="${dto.imageFilename}">
+								<input type="hidden" name="thumbnail" value="${dto.thumbnail}">
 						        <input type="hidden" name="page" value="${page}">
 							</c:if>
 						</td>

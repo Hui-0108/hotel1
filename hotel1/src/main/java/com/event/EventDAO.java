@@ -132,7 +132,7 @@ public class EventDAO {
 		String sql;
 		
 		try {
-			sql = "SELECT eventNum, eventName, content, startDate, endDate, summary, imageFilename "
+			sql = "SELECT eventNum, eventName, content, TO_CHAR(startDate, 'YYYY-MM-DD') startDate, TO_CHAR(endDate, 'YYYY-MM-DD') endDate, summary, imageFilename "
 					+ "FROM event "
 					+ "WHERE eventNum=?";
 			
