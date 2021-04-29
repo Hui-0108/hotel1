@@ -15,17 +15,10 @@
 	function sendOk() {
 		var f = document.qnaForm;
 
-		var str = f.nickname.value;
+		str = f.nickname.value;
 		if (!str) {
 			alert("QnA를 등록하기 위해서는 작성자 닉네임이 필요합니다.");
 			f.nickname.focus();
-			return;
-		}
-
-		str = f.subject.value;
-		if (!str) {
-			alert("제목을 입력하세요. ");
-			f.subject.focus();
 			return;
 		}
 
@@ -36,24 +29,10 @@
 			return;
 		}
 
-		str = f.qPwd.value;
-		if (!str) {
-			alert("글 비밀번호를 입력하세요. ");
-			f.qPwd.focus();
-			return;
-		}
-
 		f.action = "${pageContext.request.contextPath}/qna/${mode}_ok.do";
 
 		f.submit();
 	}
-	<c:if test="${mode=='update'}">
-	function deleteFile(qNum) {
-		var url = "${pageContext.request.contextPath}/qna/deleteFile.do?qNum="
-				+ qNum + "&page=${page}";
-		location.href = url;
-	}
-	</c:if>
 </script>
 
 </head>
@@ -64,13 +43,12 @@
 
 	<div class="container">
 		<div class="sidemenu">
-			<h2>제목</h2>
+			<h2>고객문의</h2>
 			<ul>
-				<li><a>소제목</a></li>
-				<li><a>소제목</a></li>
+				<li><a>F&Q</a></li>
+				<li><a>Q&A</a></li>
 			</ul>
 		</div>
-
 		<div class="body-container" style="width: 700px;">
 			<div class="body-title" style="border-bottom: 1px solid #f1e3c4;">
 				<h3 style="border-bottom: 3px solid #f1e3c4;">QnA</h3>
@@ -95,13 +73,26 @@
 							</select></td>
 						</tr>
 
-						<tr align="left" height="40">
-							<td width="100" bgcolor="#f1e3c4" style="text-align: center;">*&nbsp;
-								작성자</td>
-							<td style="padding-left: 10px;"><input type="text"
-								name="nickname" class="boxTF" style="width: 40%;"
-								value="${dto.nickname}"></td>
-						</tr>
+
+						<c:choose>
+							<c:when test="${mode=='reply'}">
+								<tr align="left" height="40">
+									<td width="100" bgcolor="#f1e3c4" style="text-align: center;">*&nbsp;
+										작성자</td>
+									<td style="padding-left: 10px;"><input type="text"
+										name="nickname" class="boxTF" style="width: 40%;" value="관리자"></td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr align="left" height="40">
+									<td width="100" bgcolor="#f1e3c4" style="text-align: center;">*&nbsp;
+										작성자</td>
+									<td style="padding-left: 10px;"><input type="text"
+										name="nickname" class="boxTF" style="width: 40%;"
+										value="${dto.nickname}"></td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
 
 
 						<tr align="left" height="40">
@@ -120,38 +111,53 @@
 							</td>
 						</tr>
 
-						<tr align="left" height="40">
-							<td width="100" bgcolor="#f1e3c4" style="text-align: center;">*&nbsp;
-								비밀번호</td>
-							<td style="padding-left: 10px;"><input type="password"
-								name="qPwd" class="boxTF" style="width: 40;">${dto.qPwd}</td>
-						</tr>
-						<tr align="left" height="40"
-							style="border-bottom: 1px solid #f1e3c4;">
-							<td width="100" bgcolor="#f1e3c4" style="text-align: center;">&nbsp;이메일</td>
-							<td style="padding-left: 10px;"><input type="text"
-								name="subject" class="boxTF" style="width: 95%;"
-								value="${dto.email}"></td>
-						</tr>
+						<c:choose>
+							<c:when test="${mode=='reply'}">
+
+							</c:when>
+							<c:otherwise>
+								<tr align="left" height="40">
+									<td width="100" bgcolor="#f1e3c4" style="text-align: center;">*&nbsp;
+										비밀번호</td>
+									<td style="padding-left: 10px;"><input type="password"
+										name="qPwd" class="boxTF" style="width: 40;">${dto.qPwd}</td>
+								</tr>
+								<tr align="left" height="40">
+									<td width="100" bgcolor="#f1e3c4" style="text-align: center;">&nbsp;첨부파일</td>
+									<td style="padding-left: 10px;"><input type="file"
+										name="selectFile" class="boxTF" multiple="multiple"></td>
+								</tr>
+								<tr align="left" height="40"
+									style="border-bottom: 1px solid #f1e3c4;">
+									<td width="100" bgcolor="#f1e3c4" style="text-align: center;">&nbsp;이메일</td>
+									<td style="padding-left: 10px;"><input type="text"
+										name="subject" class="boxTF" style="width: 95%;"
+										value="${dto.email}"></td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
 
 					</table>
 
 					<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 						<tr height="45">
-							<td align="center">
-								<button type="button" class="btn" onclick="sendBoard();">${mode=='update'?'수정완료':'등록하기'}</button>
+							<td align="center"><c:if test="${mode=='update'}">
+									<input type="hidden" name="qNum" value="${dto.qNum}">
+									<input type="hidden" name="page" value="${page}">
+									<input type="hidden" name="condition" value="${condition}">
+									<input type="hidden" name="keyword" value="${keyword}">
+								</c:if> <c:if test="${mode=='reply'}">
+									<input type="hidden" name="groupNum" value="${dto.groupNum}">
+									<input type="hidden" name="orderNo" value="${dto.orderNo}">
+									<input type="hidden" name="depth" value="${dto.depth}">
+									<input type="hidden" name="parent" value="${dto.qNum}">
+									<input type="hidden" name="page" value="${page}">
+
+								</c:if>
+								<button type="button" class="btn" onclick="sendOk();">${mode=='update'?'수정완료':(mode=='reply'? '답변완료':'등록하기')}</button>
 								<button type="reset" class="btn">다시입력</button>
 								<button type="button" class="btn"
-									onclick="javascript:location.href='${pageContext.request.contextPath}/sbbs/list.do';">${mode=='update'?'수정취소':'등록취소'}</button>
-								<c:if test="${mode=='update'}">
-									<input type="hidden" name="num" value="${dto.num}">
-									<input type="hidden" name="page" value="${page}">
-									<input type="hidden" name="fileSize" value="${dto.fileSize}">
-									<input type="hidden" name="saveFilename"
-										value="${dto.saveFilename}">
-									<input type="hidden" name="originalFilename"
-										value="${dto.originalFilename}">
-								</c:if>
+									onclick="javascript:location.href='${pageContext.request.contextPath}/qna/list.do';">${mode=='update'?'수정취소':(mode=='reply'? '답변취소':'등록취소')}</button>
 							</td>
 						</tr>
 

@@ -28,13 +28,12 @@
 
 	<div class="container">
 		<div class="sidemenu">
-			<h2>제목</h2>
+			<h2>고객문의</h2>
 			<ul>
-				<li><a>소제목</a></li>
-				<li><a>소제목</a></li>
+				<li><a>F&Q</a></li>
+				<li><a>Q&A</a></li>
 			</ul>
 		</div>
-
 		<div class="body-container" style="width: 700px;">
 			<div class="body-title"
 				style="border-bottom: 1px solid #f1e3c4; margin-bottom: 0px;">
@@ -48,8 +47,8 @@
 
 					<tr height="35"
 						style="border-bottom: 1px solid #f1e3c4; margin: 5px 0px;">
-						<td colspan="2" align="center">[ ${dto.ctg} ] ${dto.subject}
-						</td>
+						<td colspan="2" align="center"><c:if test="${dto.depth!=0 }">[Re] </c:if>
+							${dto.subject}</td>
 					</tr>
 
 					<tr height="35" style="border-bottom: 1px solid #f1e3c4;">
@@ -64,16 +63,6 @@
 							valign="top" height="200">${dto.content}</td>
 					</tr>
 
-					<tr height="35" style="border-bottom: 1px solid #cccccc;">
-						<td colspan="2" align="left" style="padding-left: 5px;">
-							첨&nbsp;&nbsp;부 : <c:if test="${not empty dto.saveFilename}">
-								<a
-									href="${pageContext.request.contextPath}/sbbs/download.do?num=${dto.num}">${dto.originalFilename}</a>
-		                    (<fmt:formatNumber value="${dto.fileSize/1024}"
-									pattern="0.00" /> kb)
-		           </c:if>
-						</td>
-					</tr>
 
 				</table>
 
@@ -81,10 +70,13 @@
 					style="width: 100%; margin: 0px auto 20px; border-spacing: 0px;">
 					<tr height="45">
 						<td width="300" align="left">
-							<button type="button" class="btn"
+							<!-- <button type="button" class="btn"
 								onclick="javascript:location.href='${pageContext.request.contextPath}/qna/reply.do?qNum=${dto.qNum}&page=${page}';">답변</button>
 							<button type="button" class="btn"
 								onclick="javascript:location.href='${pageContext.request.contextPath}/qna/update.do?qNum=${dto.qNum}&${query}';">수정</button>
+							
+							-->
+								
 							<button type="button" class="btn"
 								onclick="deleteQnA('${dto.qNum}');">삭제</button>
 
