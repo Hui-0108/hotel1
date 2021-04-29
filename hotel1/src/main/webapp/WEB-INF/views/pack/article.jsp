@@ -164,7 +164,7 @@ function deletePack(pkgNum) {
 				
 				    <td align="right">
 				        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/pack/list.do?page=${page}';">리스트</button>
-				        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/#';">예약하기</button>
+				        <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/rr/list.do';">예약하기</button>
 					</td>
 				</tr>
 			</table>

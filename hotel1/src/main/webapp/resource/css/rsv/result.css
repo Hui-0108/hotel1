@@ -1,0 +1,45 @@
+@charset "UTF-8";
+.layout {
+	width: 100;
+}
+
+.layout table {
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+	border-top: 3px solid #3A3125;
+	border-bottom: 3px solid #3A3125;
+	font-size: 15px;
+}
+
+.layout tr {
+	height: 30px;
+}
+
+.layout tr:nth-child(2), .layout tr:nth-child(3), .layout tr:nth-child(4) {
+	border-bottom: 1px solid #cfcfcf;
+}
+
+.layout td {
+	padding-left: 15px;
+}
+
+.layout .tableTitle {
+	height: 40px;
+	font-weight: bold;
+	font-size: 120%;
+	background: #f0f0f0;
+}
+
+.layout td:nth-child(2n) {
+	width: 200px;
+}
+.layout td:nth-child(2n+1) {
+	width: 150px;
+}
+
+.layout .msg {
+	text-align: center;
+	margin: 10px auto 10px;
+}
+

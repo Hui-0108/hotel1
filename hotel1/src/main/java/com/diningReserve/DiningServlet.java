@@ -28,7 +28,12 @@ public class DiningServlet extends MyServlet {
 	}
 	
 	protected void reservation(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String reserveNum =  req.getParameter("reserveNum");
+		if(reserveNum == null) {
+			reserveNum = "1";
+		}
 		
+		req.setAttribute("reserveNum", reserveNum);
 		forward(req, resp, "/WEB-INF/views/diningReserve/reservation.jsp");
 	}
 
