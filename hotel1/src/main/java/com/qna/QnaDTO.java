@@ -11,6 +11,7 @@ public class QnaDTO {
 	private String email;			// 답변 알림을 받기 위한 이메일
 	private String created;			// 글작성일
 	
+	
 	private int groupNum;			// 답변형 게시판 만들기
 	private int orderNo;
 	private int depth;

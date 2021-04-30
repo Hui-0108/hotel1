@@ -107,6 +107,7 @@ public class QnaDAO {
 		return result;
 	}
 	
+	
 	public int dataCount() {
 		int result = 0;
 		PreparedStatement pstmt = null;
