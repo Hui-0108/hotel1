@@ -12,19 +12,20 @@ import com.util.DBConn;
 public class FnqDAO {
 	private Connection conn = DBConn.getConnection();
 	
-	public int writeFnq(FnqDTO dto) throws SQLException {
+	public int InsertFnq(FnqDTO dto) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
 		
 		try {
-			sql = "INSERT INTO faq_bbs(faqNum, ctg, subject, content, hitCount) "
-					+ " VALUES(faq_seq.NEXTVAL, ?, ?, ?, 0)";
+			sql = "INSERT INTO faq_bbs(faqnum, userId, ctg, subject, content, hitCount, created) "
+					+ " VALUES(faq_seq.NEXTVAL, ?, ?, ?, ?, 0, SYSDATE)";
 			
 			pstmt = conn.prepareStatement(sql);	
-			pstmt.setString(1, dto.getCtg());
-			pstmt.setString(2, dto.getSubject());
-			pstmt.setString(3, dto.getContent());
+			pstmt.setString(1, dto.getUserId());
+			pstmt.setString(2, dto.getCtg());
+			pstmt.setString(3, dto.getSubject());
+			pstmt.setString(4, dto.getContent());
 			
 			result = pstmt.executeUpdate();
 			
@@ -35,7 +36,7 @@ public class FnqDAO {
 			if(pstmt!=null) {
 				try {
 					pstmt.close();
-				} catch (Exception e2) {
+				} catch (Exception e) {
 				}
 			}
 		}
@@ -133,11 +134,11 @@ public class FnqDAO {
 		StringBuilder sb=new StringBuilder();
 		
 		try {
-			sb.append("SELECT num, userName, subject, hitCount,  ");
+			sb.append("SELECT faqnum, b.userId, ctg, subject, hitCount,  ");
 			sb.append("       TO_CHAR(created, 'YYYY-MM-DD') created ");
 			sb.append(" FROM faq_bbs b  ");
 			sb.append(" JOIN member1 m ON b.userId = m.userId  ");
-			sb.append(" ORDER BY num DESC  ");
+			sb.append(" ORDER BY faqnum DESC  ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 			
 			pstmt=conn.prepareStatement(sb.toString());
@@ -148,10 +149,10 @@ public class FnqDAO {
 			while(rs.next()) {
 				FnqDTO dto=new FnqDTO();
 				
-				dto.setNum(rs.getInt("num"));
+				dto.setFaqnum(rs.getInt("faqnum"));
+				dto.setUserId(rs.getString("userId"));
 				dto.setCtg(rs.getString("ctg"));
 				dto.setSubject(rs.getString("subject"));
-				dto.setContent(rs.getString("content"));
 				dto.setHitCount(rs.getInt("hitCount"));
 				dto.setCreated(rs.getString("created"));
 				
@@ -185,7 +186,7 @@ public class FnqDAO {
 		StringBuilder sb=new StringBuilder();
 		
 		try {
-			sb.append("SELECT num, userName, subject, hitCount,  ");
+			sb.append("SELECT faqnum, b.userId, subject, hitCount, ctg,  ");
 			sb.append("       TO_CHAR(created, 'YYYY-MM-DD') created ");
 			sb.append(" FROM faq_bbs b  ");
 			sb.append(" JOIN member1 m ON b.userId = m.userId  ");
@@ -199,7 +200,7 @@ public class FnqDAO {
 				sb.append(" WHERE INSTR("+condition+", ?) >= 1 ");
 			}
 			
-			sb.append(" ORDER BY num DESC  ");
+			sb.append(" ORDER BY faqnum DESC  ");
 			sb.append(" OFFSET ? ROWS FETCH FIRST ? ROWS ONLY ");
 			
 			pstmt=conn.prepareStatement(sb.toString());
@@ -218,10 +219,10 @@ public class FnqDAO {
 			while(rs.next()) {
 				FnqDTO dto=new FnqDTO();
 				
-				dto.setNum(rs.getInt("num"));
+				dto.setFaqnum(rs.getInt("faqnum"));
+				dto.setUserId(rs.getString("userId"));
 				dto.setCtg(rs.getString("ctg"));
 				dto.setSubject(rs.getString("subject"));
-				dto.setContent(rs.getString("content"));
 				dto.setHitCount(rs.getInt("hitCount"));
 				dto.setCreated(rs.getString("created"));
 				
@@ -247,20 +248,20 @@ public class FnqDAO {
 		return list;
 	}
 	
-	public int updateHitCount(int num) throws SQLException {
+	public int updateHitCount(int faqnum) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
 		
 		try {
-			sql = "UPDATE faq_bbs SET hitCount = hitCount + 1 WHERE num = ?";
+			sql = "UPDATE faq_bbs SET hitCount = hitCount + 1 WHERE faqnum = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			
+			pstmt.setInt(1, faqnum);
 			result = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		} finally {
 			if(pstmt!=null) {
 				try {
@@ -273,25 +274,26 @@ public class FnqDAO {
 		return result;
 	}
 	
-	public FnqDTO readBoard(int num) {
+	public FnqDTO readBoard(int faqnum) {
 		FnqDTO dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql;
 		
 		try {
-			sql = "SELECT num, b.userId, userName, subject, content, hitCount, created "
+			sql = "SELECT faqnum, ctg, b.userId, subject, content, hitCount, created "
 				+ "  FROM faq_bbs b "
 				+ "  JOIN member1 m ON b.userId = m.userId "
-				+ "  WHERE num = ?";
+				+ "  WHERE faqnum = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, faqnum);
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				dto=new FnqDTO();
-				dto.setNum(rs.getInt("num"));
+				dto.setFaqnum(rs.getInt("faqnum"));
 				dto.setCtg(rs.getString("ctg"));
+				dto.setUserId(rs.getString("userId"));
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
 				dto.setHitCount(rs.getInt("hitCount"));
@@ -319,158 +321,20 @@ public class FnqDAO {
 		return dto;
 	}
 	
-    public FnqDTO preReadBoard(int num, String condition, String keyword) {
-    	FnqDTO dto=null;
-
-        PreparedStatement pstmt=null;
-        ResultSet rs=null;
-        StringBuffer sb = new StringBuffer();
-
-        try {
-            if(keyword!=null && keyword.length() != 0) {
-                sb.append("SELECT num, subject FROM faq_bbs b JOIN member1 m ON b.userId = m.userId ");
-                if(condition.equals("all")) {
-    				sb.append(" WHERE ( INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ) ");
-                } else if(condition.equals("created")) {
-                	keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
-                    sb.append(" WHERE (TO_CHAR(created, 'YYYYMMDD') = ?) ");
-                } else {
-                    sb.append(" WHERE ( INSTR("+condition+", ?) >= 1) ");
-                }
-                sb.append("            AND (num > ? ) ");
-                sb.append(" ORDER BY num ASC ");
-                sb.append(" FETCH  FIRST  1  ROWS  ONLY ");
-
-                pstmt=conn.prepareStatement(sb.toString());
-                if(condition.equals("all")) {
-                    pstmt.setString(1, keyword);
-                    pstmt.setString(2, keyword);
-                   	pstmt.setInt(3, num);
-                } else {
-                    pstmt.setString(1, keyword);
-                   	pstmt.setInt(2, num);
-                }
-            } else {
-                sb.append("SELECT num, subject FROM faq_bbs ");
-                sb.append(" WHERE num > ? ");
-                sb.append(" ORDER BY num ASC ");
-                sb.append(" FETCH  FIRST  1  ROWS  ONLY ");
-
-                pstmt=conn.prepareStatement(sb.toString());
-                pstmt.setInt(1, num);
-            }
-
-            rs=pstmt.executeQuery();
-
-            if(rs.next()) {
-                dto=new FnqDTO();
-                dto.setNum(rs.getInt("num"));
-                dto.setSubject(rs.getString("subject"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if(rs!=null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-            }
-                
-            if(pstmt!=null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                }
-            }
-        }
-    
-        return dto;
-    }
-
-    // 다음글
-    public FnqDTO nextReadBoard(int num, String condition, String keyword) {
-        FnqDTO dto=null;
-
-        PreparedStatement pstmt=null;
-        ResultSet rs=null;
-        StringBuffer sb = new StringBuffer();
-
-        try {
-            if(keyword!=null && keyword.length() != 0) {
-                sb.append("SELECT num, subject FROM faq_bbs b JOIN member1 m ON b.userId=m.userId ");
-                if(condition.equals("all")) {
-    				sb.append(" WHERE ( INSTR(subject, ?) >= 1 OR INSTR(content, ?) >= 1 ) ");
-                } else if(condition.equals("created")) {
-                	keyword = keyword.replaceAll("(\\-|\\/|\\.)", "");
-                    sb.append(" WHERE (TO_CHAR(created, 'YYYYMMDD') = ?) ");
-                } else {
-                    sb.append(" WHERE ( INSTR("+condition+", ?) >= 1) ");
-                }
-                sb.append("          AND (num < ? ) ");
-                sb.append(" ORDER BY num DESC ");
-                sb.append(" FETCH  FIRST  1  ROWS  ONLY ");
-
-                pstmt=conn.prepareStatement(sb.toString());
-                if(condition.equals("all")) {
-                    pstmt.setString(1, keyword);
-                    pstmt.setString(2, keyword);
-                   	pstmt.setInt(3, num);
-                } else {
-                    pstmt.setString(1, keyword);
-                   	pstmt.setInt(2, num);
-                }
-            } else {
-                sb.append("SELECT num, subject FROM faq_bbs ");
-                sb.append(" WHERE num < ? ");
-                sb.append(" ORDER BY num DESC ");
-                sb.append(" FETCH  FIRST  1  ROWS  ONLY ");
-
-                pstmt=conn.prepareStatement(sb.toString());
-                pstmt.setInt(1, num);
-            }
-
-            rs=pstmt.executeQuery();
-
-            if(rs.next()) {
-                dto=new FnqDTO();
-                dto.setNum(rs.getInt("num"));
-                dto.setSubject(rs.getString("subject"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if(rs!=null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                }
-            }
-                
-            if(pstmt!=null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                }
-            }
-        }
-
-        return dto;
-    }
-    
 	public int updateBoard(FnqDTO dto) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
 		
-		sql = "UPDATE faq_bbs SET subject=?, content=? WHERE num=? AND userId=?";
+		sql = "UPDATE faq_bbs SET subject=?, content=?, ctg=? WHERE faqnum=? AND userId=?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, dto.getSubject());
 			pstmt.setString(2, dto.getContent());
-			pstmt.setInt(3, dto.getNum());
-			pstmt.setString(4, dto.getUserId());
+			pstmt.setString(3, dto.getCtg());
+			pstmt.setInt(4, dto.getFaqnum());
+			pstmt.setString(5, dto.getUserId());
 			result = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -488,18 +352,18 @@ public class FnqDAO {
 		return result;
 	}
 	
-	public int deleteBoard(int num, String userId) throws SQLException {
+	public int deleteBoard(int faqnum, String userId) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
 		
 		try {
-			sql = "DELETE FROM faq_bbs WHERE num = ?";
+			sql = "DELETE FROM faq_bbs WHERE faqnum = ?";
 			if(! userId.equals("admin")) {
 				sql += " AND userId = ?";
 			}
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, faqnum);
 			if(! userId.equals("admin")) {
 				pstmt.setString(2, userId);
 			}

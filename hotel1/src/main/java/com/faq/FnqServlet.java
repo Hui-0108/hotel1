@@ -8,16 +8,16 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.member.SessionInfo;
+import com.util.MyServlet;
 import com.util.MyUtil;
 
 @WebServlet("/faq/*")
-public class FnqServlet extends HttpServlet{
+public class FnqServlet extends MyServlet{
 	private static final long serialVersionUID = 1L;
 	
 	@Override
@@ -61,6 +61,7 @@ public class FnqServlet extends HttpServlet{
 	protected void list(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		FnqDAO dao = new FnqDAO();
 		MyUtil util = new MyUtil();
+		
 		String cp = req.getContextPath();
 		
 		String page = req.getParameter("page");
@@ -102,13 +103,13 @@ public class FnqServlet extends HttpServlet{
 			list = dao.listBoard(offset, rows, condition, keyword);
 		}
 		
-		int faqnum, n=0;
+		int listNum, n=0;
 		for(FnqDTO dto : list) {
-			faqnum = dataCount - (offset+n);
-			dto.setFaqnum(faqnum);
+			listNum = dataCount - (offset + n);
+			dto.setListNum(listNum);
 			n++;
 		}
-		
+	
 		String query="";
 		if(keyword.length()!=0) {
 			query="condition="+condition+"&keyword="+URLEncoder.encode(keyword, "utf-8");
@@ -140,22 +141,27 @@ public class FnqServlet extends HttpServlet{
 	}
 	
 	protected void createdSubmit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		FnqDAO dao = new FnqDAO();
-		FnqDTO dto = new FnqDTO();
+		
+		String cp = req.getContextPath();
 		
 		HttpSession session = req.getSession();
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		FnqDAO dao = new FnqDAO();
 		
 		try {
+			FnqDTO dto = new FnqDTO();
+			
+			dto.setUserId(info.getUserId());
+			
+			dto.setCtg(req.getParameter("ctg"));
 			dto.setSubject(req.getParameter("subject"));
 			dto.setContent(req.getParameter("content"));
 			
-			dao.writeFnq(dto);
+			dao.InsertFnq(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		String cp = req.getContextPath();
 		resp.sendRedirect(cp+"/faq/list.do");
 	}
 	
@@ -166,7 +172,7 @@ public class FnqServlet extends HttpServlet{
 		String query = "page="+page;
 		
 		try {
-			int num = Integer.parseInt(req.getParameter("num"));
+			int faqnum = Integer.parseInt(req.getParameter("faqnum"));
 			
 			String condition = req.getParameter("condition");
 			String keyword = req.getParameter("keyword");
@@ -181,16 +187,19 @@ public class FnqServlet extends HttpServlet{
 			}
 			
 			// 조회수
-			dao.updateHitCount(num);
+			dao.updateHitCount(faqnum);
 			
 			// 게시글 가져오기
-			FnqDTO dto = dao.readBoard(num);
+			FnqDTO dto = dao.readBoard(faqnum);
 			if(dto == null) {
 				resp.sendRedirect(cp+"/faq/list.do?"+query);
 				return;
 			}
 			
 			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+			
+			
+			// 이전글 다음글
 			
 			req.setAttribute("dto", dto);
 			req.setAttribute("page", page);
@@ -214,8 +223,8 @@ public class FnqServlet extends HttpServlet{
 		String page = req.getParameter("page");
 		
 		try {
-			int num = Integer.parseInt(req.getParameter("num"));
-			FnqDTO dto = dao.readBoard(num);
+			int faqnum = Integer.parseInt(req.getParameter("faqnum"));
+			FnqDTO dto = dao.readBoard(faqnum);
 			
 			if(dto!=null) {
 				req.setAttribute("dto", dto);
@@ -240,9 +249,12 @@ public class FnqServlet extends HttpServlet{
 		
 		try {
 			FnqDTO dto = new FnqDTO();
-			dto.setNum(Integer.parseInt(req.getParameter("num")));
+			dto.setFaqnum(Integer.parseInt(req.getParameter("faqnum")));
 			dto.setSubject(req.getParameter("subject"));
 			dto.setContent(req.getParameter("content"));
+			dto.setCtg(req.getParameter("ctg"));
+			
+			dto.setUserId(info.getUserId());
 			
 			dao.updateBoard(dto);
 			
@@ -266,7 +278,7 @@ public class FnqServlet extends HttpServlet{
 		String query = "page="+page;
 		
 		try {
-			int num = Integer.parseInt(req.getParameter("num"));
+			int faqnum = Integer.parseInt(req.getParameter("faqnum"));
 			String condition = req.getParameter("condition");
 			String keyword = req.getParameter("keyword");
 			if(condition==null) {
@@ -279,7 +291,7 @@ public class FnqServlet extends HttpServlet{
 						"&keyword="+URLEncoder.encode(keyword, "utf-8");
 			}
 			
-			dao.deleteBoard(num, info.getUserId());
+			dao.deleteBoard(faqnum, info.getUserId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

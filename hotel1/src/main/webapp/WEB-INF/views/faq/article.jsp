@@ -17,9 +17,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/jquery/js/jquery.min.js"></script>
 <script type="text/javascript">
 <c:if test="${dto.userId == sessionScope.member.userId || sessionScope.member.userId == 'admin'}">
-function deleteBoard(num) {
+function deleteBoard(faqnum) {
 	if(confirm("게시물을 삭제 하시겠습니까 ?")) {
-		var url="${pageContext.request.contextPath}/faq/delete.do?num="+num+"&${query}";
+		var url="${pageContext.request.contextPath}/faq/delete.do?faqnum="+faqnum+"&${query}";
 		location.href=url;
 	}
 }
@@ -35,7 +35,7 @@ function deleteBoard(num) {
 <div class="container">
     <div class="body-container" style="width: 700px;">
         <div class="body-title">
-            <h3><span style="font-family: Webdings">2</span> 게시판 </h3>
+            <h3><span style="font-family: Webdings">2</span> F&Q </h3>
         </div>
         
         <div>
@@ -48,7 +48,7 @@ function deleteBoard(num) {
 			
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
 			    <td width="50%" align="left" style="padding-left: 5px;">
-			       이름 : ${dto.userName}
+			       이름 : ${dto.userId}
 			    </td>
 			    <td width="50%" align="right" style="padding-right: 5px;">
 			        ${dto.created} | 조회 ${dto.hitCount}
@@ -60,29 +60,12 @@ function deleteBoard(num) {
 			      ${dto.content}
 			   </td>
 			</tr>
-			
-			<tr height="35" style="border-bottom: 1px solid #cccccc;">
-			    <td colspan="2" align="left" style="padding-left: 5px;">
-			       이전글 :
-                   <c:if test="${not empty preReadDto}">
-                   	<a href="${pageContext.request.contextPath}/faq/article.do?num=${preReadDto.num}&${query}">${preReadDto.subject}</a>
-                   </c:if>
-			    </td>
-			</tr>
-			
-			<tr height="35" style="border-bottom: 1px solid #cccccc;">
-			    <td colspan="2" align="left" style="padding-left: 5px;">
-			       다음글 :
-                   <c:if test="${not empty nextReadDto}">
-                   	<a href="${pageContext.request.contextPath}/faq/article.do?num=${nextReadDto.num}&${query}">${nextReadDto.subject}</a>
-                   </c:if>
-			    </td>
-			</tr>
+
 			<tr height="45">
 			    <td>
 			    	<c:choose>
 			    		<c:when test="${dto.userId == sessionScope.member.userId}">
-			    			<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/faq/update.do?num=${dto.num}&page=${page}';">수정</button>
+			    			<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/faq/update.do?faqnum=${dto.faqnum}&page=${page}';">수정</button>
 			    		</c:when>
 			    		<c:otherwise>
 			    			<button type="button" class="btn" disabled="disabled">수정</button>
@@ -90,17 +73,13 @@ function deleteBoard(num) {
 			    	</c:choose>
 			    	<c:choose>
 			    		<c:when test="${dto.userId == sessionScope.member.userId || sessionScope.member.userId=='admin' }">
-			    			<button type="button" class="btn" onclick="deleteBoard('${dto.num}');">삭제</button>			    			
+			    			<button type="button" class="btn" onclick="deleteBoard('${dto.faqnum}');">삭제</button>			    			
 			    		</c:when>
 			    		<c:otherwise>
 			    			<button type="button" class="btn" disabled="disabled">삭제</button>
 			    		</c:otherwise>
 			
 			    	</c:choose>
-			    	
-			    	
-			          <button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/faq/update.do?num=${dto.num}&page=${page}';">수정</button>
-			          <button type="button" class="btn" onclick="deleteBoard('${dto.num}');">삭제</button>
 			    </td>
 			
 			    <td align="right">

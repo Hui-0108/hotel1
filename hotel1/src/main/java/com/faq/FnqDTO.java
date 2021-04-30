@@ -1,7 +1,15 @@
 package com.faq;
 
 public class FnqDTO {
-	private int num, faqnum;
+	private int listNum;
+	
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
+	private int faqnum;
 	private String ctg;
 	private String userId;
 	private String subject;
@@ -9,12 +17,6 @@ public class FnqDTO {
 	private String created;
 	private int hitCount;
 	
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
-		this.num = num;
-	}
 	public int getFaqnum() {
 		return faqnum;
 	}

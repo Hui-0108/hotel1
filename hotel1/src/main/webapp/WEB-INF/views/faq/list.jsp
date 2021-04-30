@@ -32,8 +32,8 @@
 	<div class="sidemenu">
 			<h2>고객문의</h2>
 		<ul>
-			<li><a>F&Q</a></li>
-			<li><a>Q&A</a></li>
+			<li><a href="/hotel1/faq/list.do">F&Q</a></li>
+			<li><a href="/hotel1/qna/list.do">Q&A</a></li>
 		</ul>
 	</div>
     <div class="body-container" style="width: 700px;">
@@ -54,7 +54,8 @@
 			</table>
 			
 			<table style="width: 100%; border-spacing: 0; border-collapse: collapse;">
-			  <tr align="center" bgcolor="#eeeeee" height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+			  <tr align="center" bgcolor="#eeeeee" height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
+			  	  <th width="80" style="color: #787878;">질문유형</th>
 			      <th width="60" style="color: #787878;">번호</th>
 			      <th style="color: #787878;">제목</th>
 			      <th width="100" style="color: #787878;">작성자</th>
@@ -64,11 +65,12 @@
 			 
 			 <c:forEach var="dto" items="${list}">
 			  <tr align="center" height="35" style="border-bottom: 1px solid #cccccc;"> 
+			  	  <td>${dto.ctg}</td>
 			      <td>${dto.listNum}</td>
 			      <td align="left" style="padding-left: 10px;">
-			           <a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
+			           <a href="${articleUrl}&faqnum=${dto.faqnum}">${dto.subject}</a>
 			      </td>
-			      <td>${dto.userName}</td>
+			      <td>${dto.userId}</td>
 			      <td>${dto.created}</td>
 			      <td>${dto.hitCount}</td>
 			  </tr>
@@ -92,9 +94,10 @@
 			      <td align="center">
 			          <form name="searchForm" action="${pageContext.request.contextPath}/faq/list.do" method="post">
 			              <select name="condition" class="selectField">
+			              	  <option value="ctg"      ${condition=="ctg"?"selected='selected'":"" }>카테고리</option>
 			                  <option value="all"      ${condition=="all"?"selected='selected'":"" }>제목+내용</option>
 			                  <option value="subject"  ${condition=="subject"?"selected='selected'":"" }>제목</option>
-			                  <option value="userName" ${condition=="userName"?"selected='selected'":"" }>작성자</option>
+			                  <option value="userId"   ${condition=="userId"?"selected='selected'":"" }>작성자</option>
 			                  <option value="content"  ${condition=="content"?"selected='selected'":"" }>내용</option>
 			                  <option value="created"  ${condition=="created"?"selected='selected'":"" }>등록일</option>
 			            </select>
@@ -104,7 +107,7 @@
 			      </td>
 			      <td align="right" width="100">
 			      		<c:if test="${sessionScope.member.userId=='admin' }">
-			          		<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/faq/created.do';">글올리기</button>
+			          		<button type="button" class="btn" onclick="javascript:location.href='${pageContext.request.contextPath}/faq/created.do';">글쓰기</button>
 			          	</c:if>
 			      </td>
 			   </tr>
