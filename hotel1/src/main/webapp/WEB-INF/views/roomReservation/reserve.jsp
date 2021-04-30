@@ -26,7 +26,7 @@ function rsvSubmit() {
 	
 	str = f.firstName.value;
 
-	if(! /^[가-힣]{2,5}|[a-zA-z]{2,10}\s[a-zA-z]{2,10}$/.test(str)){
+	if(! /^[가-힣]{1,5}|[a-zA-z\s]{2,10}$/.test(str)){
 		alert("이름을 정확히 입력해주세요.");
 			f.firstName.focus();
 			return;			
@@ -34,7 +34,7 @@ function rsvSubmit() {
 	
 	str = f.lastName.value;
  
-	if(! /^[가-힣]{1}|[a-zA-z]{2,10}\s[a-zA-z]{2,10}$/.test(str)){
+	if(! /^[가-힣]{1}|[a-zA-z\s]{2,10}$/.test(str)){
 		alert("성을 정확히 입력해주세요.");
 			f.lastName.focus();
 			return;			

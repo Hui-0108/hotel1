@@ -34,6 +34,8 @@ public class RRoomServlet extends MyServlet {
 		
 		if(uri.indexOf("list.do") != -1) {
 			list(req, resp);
+		} else if(uri.indexOf("detail.do") != -1) {
+			detail(req, resp);
 		} else if(uri.indexOf("reserve.do") != -1) {
 			reserveForm(req, resp);
 		} else if(uri.indexOf("reserve_ok.do") != -1) {
@@ -46,6 +48,8 @@ public class RRoomServlet extends MyServlet {
 			loginSubmit(req, resp);
 		} else if(uri.indexOf("info.do") != -1) {
 			showInfo(req,resp);
+		} else if(uri.indexOf("delete.do") != -1) {
+			delete(req, resp);
 		}
 	}
 	
@@ -74,6 +78,22 @@ public class RRoomServlet extends MyServlet {
 		}
 		
 		forward(req, resp, "/WEB-INF/views/roomReservation/list.jsp");
+	}
+	
+	protected void detail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String classNum = req.getParameter("classNum");
+		String checkIn = req.getParameter("checkIn");
+		String checkOut = req.getParameter("checkOut");
+		String guestCount = req.getParameter("guestCount");
+		String nights = req.getParameter("nights");
+		req.setAttribute("classNum", classNum);
+		req.setAttribute("checkIn", checkIn);
+		req.setAttribute("checkOut", checkOut);
+		req.setAttribute("guestCount", guestCount);
+		req.setAttribute("nights", nights);
+		String num = req.getParameter("num");
+		forward(req, resp, "/WEB-INF/views/roomReserve/de"+num+".jsp");
+	
 	}
 	
 	protected void reserveForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -238,6 +258,32 @@ public class RRoomServlet extends MyServlet {
 		RRoomDTO dto = dao.readRoomReservation(rorNum);
 		req.setAttribute("dto", dto);
 		forward(req, resp, "/WEB-INF/views/roomReservation/reserveCheck.jsp");
+	}
+	
+	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		RRoomDAO dao = new RRoomDAO();
+		ClientDAO cdao = new ClientDAO();
+		String cp = req.getContextPath();
+		int clientNum = 0;
+		String rorNum = req.getParameter("rorNum");
+		
+		try {
+			dao.deleteRoomReservation(rorNum);
+			
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			clientNum = dao.findClientNumByRor(rorNum);
+			if(info==null) {
+				cdao.cancelClient(clientNum);
+			} else {
+				cdao.cancelMember(clientNum);
+			}	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+		resp.sendRedirect(cp);
 	}
 	
 }

@@ -200,5 +200,38 @@ public class RDiningDAO {
 		return result;
 	}
 	
+	public int findClientNumByRod(String rodNum) {
+		int clientNum=0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		try {
+			sql = "SELECT c.clientNum FROM client c "
+					+ " JOIN reservationOfDin rod On rod.clientNum=c.clientNum "
+					+ " WHERE rodNum=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rodNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) clientNum=rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		return clientNum;
+	}
+	
 
 }

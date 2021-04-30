@@ -45,12 +45,9 @@
 }
 </style>
 <script type="text/javascript">
-function cancelRoom() {
-	
-	
-	
+function cancelRoom(rorNum) {
+	location.href="${pageContext.request.contextPath}/rr/delete.do?rorNum="+rorNum;
 }
-
 </script>
 
 </head>
@@ -84,7 +81,7 @@ function cancelRoom() {
 				<td class="tbContent">${dto.price}원</td>
 				<td class="tbContent">${dto.checkIn}</td>
 				<td class="tbContent">${dto.checkOut}</td>	
-				<td> <button type="button" class="reserbtn" onclick="cancelRoom(${dto.rorNum});">예약취소</button>  </td>
+				<td> <button type="button" class="reserbtn" onclick="cancelRoom('${dto.rorNum}');">예약취소</button>  </td>
 			</tr>									
 		</table>	
 	</div>

@@ -232,14 +232,14 @@ public class RRoomDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public int deleteRoomReservation(int rorNum) throws SQLException {
+	public int deleteRoomReservation(String rorNum) throws SQLException {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
 		try {
 			sql = "DELETE FROM reservationOfRoom WHERE rorNum=? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, rorNum);
+			pstmt.setString(1, rorNum);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -253,6 +253,39 @@ public class RRoomDAO {
 			}
 		}
 		return result;
+	}
+	
+	public int findClientNumByRor(String rorNum) {
+		int clientNum=0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		try {
+			sql = "SELECT clienNum FROM client c "
+					+ " JOIN reservationOfRoom ror On ror.clientNum=c.clientNum "
+					+ " WHERE rodNum=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rorNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) clientNum=rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		return clientNum;
 	}
 	
 }
