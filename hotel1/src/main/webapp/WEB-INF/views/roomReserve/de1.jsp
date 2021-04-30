@@ -51,12 +51,12 @@ $(function(){
 					
 				
 				
-    <div class="body-container" style="width: 800px;">
-        <div class="body-title">
+    <div class="body-container" style="width: 100%; margin: auto;">
+        <div class="body-title" style="width: 700px; margin: auto;">
             <h3><i class="fas fa-chalkboard"></i> 디럭스룸 </h3>
         </div>
         
-        <div>
+        <div style="padding-top: 30px;">
 			
         	<div class="imgLayout">
 				<ul class="slider" style="margin: 0;">
@@ -71,10 +71,9 @@ $(function(){
            </div>
            			
         </div>
-        </div>
-        <div class="diningtext"></div>
-    <div class="HotelBoxTop"></div> 
-<div class="conTitle2" align="center"> 
+            <div class="diningtext">
+    <div class="HotelBoxTop">
+<div class="conTitle2" align="center"  style="padding-top: 30px;"> 
 <h3 class="tit">Hotel Info.</h3></div> 
 
 <div align="center">
@@ -107,7 +106,11 @@ $(function(){
 비수기(성수기 외 기간) :
 최초 1일 숙박 요금의 10%가 위약금으로 부과</h6>
 </div>
+</div> 
+</div>
 <br>
+        </div>
+    
 <div class="footer">
     <jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
 </div>
