@@ -44,10 +44,8 @@
 }
 </style>
 <script type="text/javascript">
-function cancelDin() {
-	
-	
-	
+function cancelDin(rodNum) {
+	location.href="${pageContext.request.contextPath}/diningReserve/delete.do?rodNum="+rodNum;
 }
 </script>
 
@@ -69,7 +67,7 @@ function cancelDin() {
 				<td class="tbName" style="width: 150px">레스토랑</td>
 				<td class="tbName" style="width: 150px">좌석</td>
 				<td class="tbName" style="width: 150px">예약인원</td>
-				<td class="tbName" style="width: 150px">예약일</td>
+				<td class="tbName" style="width: 150px">예약일/시간</td>
 				<td class="tbName" style="width: 150px"></td>
 			</tr>
 			<tr>
@@ -77,8 +75,8 @@ function cancelDin() {
 				<td class="tbContent">${dto.dinName }</td>
 				<td class="tbContent">${dto.seatType==1?'룸':'테이블'}</td>
 				<td class="tbContent">${dto.guestCount}</td>
-				<td class="tbContent">${dto.rsvDate} ${dto.rsvTime}</td>	
-				<td align="center"> <button type="button" class="reserbtn" onclick="cancelDin(${dto.rodNum});">예약취소</button>   </td>
+				<td class="tbContent">${dto.rsvDate}&nbsp;${dto.rsvTime}</td>	
+				<td align="center"> <button type="button" class="reserbtn" onclick="cancelDin('${dto.rodNum}');">예약취소</button>   </td>
 			</tr>
 		</table>
 	</div>

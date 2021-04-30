@@ -46,6 +46,8 @@ public class DiningServlet extends MyServlet {
 			loginSubmit(req, resp);
 		} else if(uri.indexOf("info.do") != -1) {
 			showInfo(req,resp);
+		} else if(uri.indexOf("delete.do") != -1) {
+			delete(req, resp);
 		}
 		
 		
@@ -202,7 +204,32 @@ public class DiningServlet extends MyServlet {
 		String rodNum = req.getParameter("rodNum");
 		RDiningDTO dto = dao.readDiningReservation(rodNum);
 		req.setAttribute("dto", dto);
-		forward(req, resp, "/WEB-INF/views/roomReservation/reserveCheck.jsp");
+		forward(req, resp, "/WEB-INF/views/diningReservation/reserveCheck.jsp");
 	}
-
+	
+	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		RDiningDAO dao = new RDiningDAO();
+		ClientDAO cdao = new ClientDAO();
+		String cp = req.getContextPath();
+		int clientNum = 0;
+		String rodNum = req.getParameter("rodNum");
+		
+		try {
+			dao.deleteDiningReservation(rodNum);
+			
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			clientNum = dao.findClientNumByRod(rodNum);
+			if(info==null) {
+				cdao.cancelClient(clientNum);
+			} else {
+				cdao.cancelMember(clientNum);
+			}	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+		resp.sendRedirect(cp);
+	}
 }

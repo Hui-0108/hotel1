@@ -125,7 +125,7 @@ public class ClientDAO {
 		return result;
 	}
 	// 예약취소로 인한 멤버 신용정보 삭제(null로 업데이트)
-	public int cancelMember(ClientDTO dto) throws SQLException{
+	public int cancelMember(int clientNum) throws SQLException{
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql;
@@ -133,7 +133,7 @@ public class ClientDAO {
 		try {
 			sql = "UPDATE client SET region = null, creditCorp = null, creditNum = null, creditYear =null, creditMonth = null WHERE clientNum  = ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, dto.getClientNum());
+			pstmt.setInt(1, clientNum);
 			result = pstmt.executeUpdate();
 			
 		} catch (Exception e) {

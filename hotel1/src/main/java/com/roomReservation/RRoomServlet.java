@@ -46,6 +46,8 @@ public class RRoomServlet extends MyServlet {
 			loginSubmit(req, resp);
 		} else if(uri.indexOf("info.do") != -1) {
 			showInfo(req,resp);
+		} else if(uri.indexOf("delete.do") != -1) {
+			delete(req, resp);
 		}
 	}
 	
@@ -238,6 +240,32 @@ public class RRoomServlet extends MyServlet {
 		RRoomDTO dto = dao.readRoomReservation(rorNum);
 		req.setAttribute("dto", dto);
 		forward(req, resp, "/WEB-INF/views/roomReservation/reserveCheck.jsp");
+	}
+	
+	protected void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		RRoomDAO dao = new RRoomDAO();
+		ClientDAO cdao = new ClientDAO();
+		String cp = req.getContextPath();
+		int clientNum = 0;
+		String rorNum = req.getParameter("rorNum");
+		
+		try {
+			dao.deleteRoomReservation(rorNum);
+			
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			clientNum = dao.findClientNumByRor(rorNum);
+			if(info==null) {
+				cdao.cancelClient(clientNum);
+			} else {
+				cdao.cancelMember(clientNum);
+			}	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+		resp.sendRedirect(cp);
 	}
 	
 }
