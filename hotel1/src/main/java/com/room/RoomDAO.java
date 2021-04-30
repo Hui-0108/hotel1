@@ -51,6 +51,14 @@ public class RoomDAO {
 		return dto;
 	}
 	
+	/**
+	 * 선택한 클래스 중에서 체크인/아웃 날짜에 예약 가능한 룸번호를 반환하는 메소드
+	 * 예약가능한 룸번호 중에 1개를 반환
+	 * @param classNum		클래스번호(1 ~ 6)
+	 * @param checkIn		체크인날짜
+	 * @param checkOut		체크아웃날짜
+	 * @return
+	 */
 	public int getEmptyRoomNum(int classNum, String checkIn, String checkOut) {
 		int roomNum = 0;
 		PreparedStatement pstmt = null;

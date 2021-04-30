@@ -76,12 +76,12 @@ input[name=firstName], input[name=lastName] {
 	width: 196px;
 }
 
-input[name=email], input[name=tel]  {
+input[name=email], input[name=tel], input[name=guestCount] {
 	width: 408px;
 	text-align: center;
 }
 
-select[name=region], select[name=creditCorp] {
+select[name=region], select[name=creditCorp], select[name=seatType], select[name=time], select[name=rsvDate] {
 	width: 420px;
 }
 

@@ -16,10 +16,10 @@ public class RRoomDAO {
 	
 	/**
 	 * 룸예약완료시 reservationOfRoom에 RRoomDTO를 삽입
-	 * 룸예약번호는 시퀀스번호와 시스템날짜로 조합
+	 * 룸예약번호는 알파벳 r과 시퀀스번호와 시스템날짜로 조합
 	 * rorNum = ror_seq.NEXTVAL+'YYYYMMDD'
 	 * @param dto		룸예약 DTO
-	 * @return
+	 * @return rorNum	룸예약번호
 	 * @throws SQLException
 	 */
 	public String insertRoomReservation(RRoomDTO dto) throws SQLException {
@@ -38,10 +38,10 @@ public class RRoomDAO {
 			Calendar cal = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			String now = sdf.format(cal.getTime());
-			rorNum= rorNum+now;
+			rorNum= "r"+rorNum+now;
 			
-			sql = "INSERT INTO reservationOfRoom(rorNum, roomNum, clientNum, checkIn, checkOut, guestCount, price) "
-					+ " VALUES(?, ?, ?, ?, ?, ?, ?)";
+			sql = "INSERT INTO reservationOfRoom(rorNum, roomNum, clientNum, checkIn, "
+					+ " checkOut, guestCount, price) VALUES(?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, rorNum);
 			pstmt.setInt(2, dto.getRoomNum());
@@ -70,7 +70,6 @@ public class RRoomDAO {
 				}
 			}
 		}
-		
 		return rorNum;
 	}
 	
@@ -171,6 +170,59 @@ public class RRoomDAO {
 			
 		}
 				
+		return list;
+	}
+	
+	/**
+	 * 회원의 룸예약 내역을 리스트로 반환
+	 * @param userId	회원아이디
+	 * @return
+	 */
+	public List<RRoomDTO> listByUserId(String userId) {
+		List<RRoomDTO> list = new ArrayList<RRoomDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql;
+		RRoomDTO dto = null;
+		try {
+			sql = "SELECT rorNum, ror.roomNum, TO_CHAR(checkIn, 'YYYY-MM-DD') checkIn, "
+					+ " TO_CHAR(checkOut, 'YYYY-MM-DD') checkOut, guestCount, ror.price, className "
+					+ " FROM client c JOIN member1 m ON m.clientNum=c.clientNum "
+					+ " JOIN reservationOfRoom ror ON ror.clientNum=m.clientNum "
+					+ " JOIN room r ON ror.roomNum=r.roomNum "
+					+ " JOIN roomClass rc ON r.classNum=rc.classNum "
+					+ " WHERE userId=? ORDER BY checkIn";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				dto = new RRoomDTO();
+				dto.setRorNum(rs.getString("rorNum"));
+				dto.setRoomNum(rs.getInt("roomNum"));
+				dto.setCheckIn(rs.getString("checkIn"));
+				dto.setCheckOut(rs.getString("checkOut"));
+				dto.setGuestCount(rs.getInt("guestCount"));
+				dto.setPrice(rs.getInt("price"));
+				dto.setClassName(rs.getString("className"));
+				list.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (Exception e2) {
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (Exception e2) {
+				}
+			}
+			
+		}
 		return list;
 	}
 	

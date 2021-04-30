@@ -78,7 +78,7 @@ window.onload = function() {
 			<h2>예약</h2>
 		<ul>
 			<li><a>룸 예약</a></li>
-			<li><a>다이닝 예약</a></li>
+			<li><a href="${pageContext.request.contextPath}/diningReserve/reservation.do">다이닝 예약</a></li>
 		</ul>
 	</div>
     <div class="body-container" style="width: 700px;">

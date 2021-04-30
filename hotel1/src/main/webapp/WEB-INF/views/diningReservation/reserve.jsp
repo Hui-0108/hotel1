@@ -24,6 +24,32 @@ function rsvSubmit() {
 	var f = document.infoForm;
 	var str;
 	
+	if(! f.seatType.value) {
+		alert("좌석 유형을 선택해주세요.");
+		f.seatType.focus();
+		return;
+	}
+	
+	if(! f.rsvDate.value) {
+		alert("날짜를 선택해주세요.");
+		f.rsvDate.focus();
+		return;
+	}
+	
+	str = f.guestCount.value;
+	
+	if(! /^\d{1,2}$/.test(str)) {
+		alert("인원을 정확히 입력해주세요.");
+		f.guestCount.focus();
+		return;
+	}
+	
+	if(! f.time.value) {
+		alert("시간을 선택해 주세요.");
+		f.time.focus();
+		return;
+	}
+	
 	str = f.firstName.value;
 
 	if(! /^[가-힣]{2,5}|[a-zA-z]{2,10}\s[a-zA-z]{2,10}$/.test(str)){
@@ -107,7 +133,7 @@ function rsvSubmit() {
     	return;
     } 
     
-	f.action = "${pageContext.request.contextPath}/rr/reserve_ok.do";
+	f.action = "${pageContext.request.contextPath}/diningReserve/reserve_ok.do";
 	f.submit();	
 }
 
@@ -150,6 +176,66 @@ window.onload = function() {
         
         <div class="body-content">
         	<form name="infoForm" method="post">
+        		<table style="width: 100%; background: #f0f0f0;">
+					<tr class="table-title">
+						<td class="table-title" align="left" >인원, 날짜, 시간 선택</td> 
+						<td class="table-title" align="right" >
+							<span class="red">*</span>&nbsp;&nbsp;표시 필수 입력사항
+						</td> 
+					</tr>
+				</table> 
+        		
+        		<div class="left">
+        			<table class="info-left">
+        				<tr>
+        					<td>좌석 유형<span class="red">*</span></td>
+        					<td> 
+	        					<select name="seatType" class="selectField">
+	        						<option value="">선택</option>
+	        						<option value="1">룸</option>
+	        						<option value="1">테이블</option>
+	        					</select>
+        					</td>
+        				</tr>
+        				<tr>
+        					<td>날짜<span class="red">*</span></td>
+        					<td> <input name="rsvDate" class="boxTF"  type="date"> </td>
+        				</tr>
+        				<tr>
+        					<td>인원<span class="red">*</span></td>
+        					<td> <input name="guestCount" class="boxTF"  type="text"> </td>
+        				</tr>
+        				<tr>
+        					<td>시간<span class="red">*</span></td>
+        					<td> 
+        						<select name="time" class="selectField" >
+        							<option value="">선택</option>
+        							<option>10:00</option>
+        							<option>10:30</option>
+        							<option>11:00</option>
+        							<option>11:30</option>
+        							<option>12:00</option>
+        							<option>12:30</option>
+        							<option>13:00</option>
+        							<option>13:30</option>
+        							<option>17:00</option>
+        							<option>17:30</option>
+        							<option>18:00</option>
+        							<option>18:30</option>
+        							<option>19:00</option>
+        							<option>19:30</option>
+        							<option>20:00</option>
+        							<option>20:30</option>
+        						</select>
+        					</td>
+        				</tr>
+        			</table>
+        		</div>
+        		<div class="right" style="background: #f5f5f5; height: 197px">
+        			
+        		</div>
+        		
+        		
 				<table style="width: 100%; background: #f0f0f0;">
 					<tr class="table-title">
 						<td class="table-title" align="left" >정보입력</td> 
@@ -337,11 +423,7 @@ window.onload = function() {
         				<td class="table-title" align="center"  style="background: #f1e3c4;">
         				<input name="check" id="rsvCheck" type="checkbox"><label for="rsvCheck"></label>
         				<input name="mode" type="hidden">
-        				<input name="checkIn" type="hidden" value="${checkIn}">
-        				<input name="checkOut" type="hidden" value="${checkOut}">
-        				<input name="guestCount" type="hidden" value="${guestCount}">
-        				<input name="classNum" type="hidden" value="${classNum}">
-        				<input name="nights" type="hidden" value="${nights}">
+        				<input name="dinNum" type="hidden" value="${dinNum}">
         				 유의사항, 취소 및 환불 규정을 모두 확인했습니다.
         				</td> 
         			</tr>

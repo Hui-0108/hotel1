@@ -35,6 +35,9 @@
     height: 40px;
     margin-top: 20px;
 }
+input.inputBox {
+	text-align: center;
+}
 
 .reserveBtn{
     margin-left: 15px;
@@ -58,14 +61,26 @@
 
 }
 
+select {
+	text-align: center;
+	margin-left: 15px;
+    width: 390px;
+    height: 40px;
+    margin-top: 20px;
+}
 
 }
 </style>
 <script type="text/javascript">
 
 function sendOk() {
-	
-	
+	f = document.reserveNumForm;
+	if(! f.num.value) {
+		alert("예약번호를 입력하세요.");
+		f.num.focus();
+	}
+	f.action = "${pageContext.request.contextPath}/"+f.mode.value+"/login_ok.do";
+	f.submit();
 }
 
 </script>
@@ -76,14 +91,14 @@ function sendOk() {
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
 
-<div class="container" style="height: 400px;s">
+<div class="container" style="height: 450px;">
 
 	<div style="margin: 70px auto 60px; width: 600x;">
 
 	    <div style="text-align: left;" class="body-title">
 	        <span style=" font-size:27px; color: #424951; font-family: 'Oswald', sans-serif;">예약번호 확인</span>
 	    </div>
-		<form name="reserveNumForm" method="post" action="">
+		<form name="reserveNumForm" method="post">
 			<table style="width:420px; margin: 20px auto; padding:30px;  border-collapse: collapse;">
 			
 
@@ -103,17 +118,27 @@ function sendOk() {
 				※ 문의사항은 고객게시판ㆍ고객센터(02-336-8546)를 이용해 주시기 바랍니다.
 				</td> 				
 				</tr>
-
+				<tr>
+					<td class="selectBox">
+						<select name="mode" class="selectField">
+							<option value="rr">룸</option>
+							<option value="diningReserve">다이닝</option>
+						</select>					
+					</td>
+				</tr>
 				<tr>
 					<td class="inputBox">
-						<input type="text" name="Num" class="inputBox">
+						<input type="text" name="num" class="inputBox" placeholder="예약번호">
 					</td>
 				</tr>
 				<tr>
 					<td >						
 						<button type="button" onclick="sendOk();" class="reserveBtn">확인</button>
 					</td>
-				</tr>	
+				</tr>
+				<tr align="center" height="40" >
+			    	<td><span style="color: #68461a;">${message}</span></td>
+			  	</tr>	
 			
 			</table>
 		</form>

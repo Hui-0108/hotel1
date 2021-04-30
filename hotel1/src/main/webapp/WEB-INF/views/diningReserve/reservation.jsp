@@ -70,6 +70,10 @@ function reserveChange() {
 	f.action="${pageContext.request.contextPath}/diningReserve/reservation.do";
 	f.submit();
 }
+function rsv() {
+	var f = document.reserveForm;
+	location.href="${pageContext.request.contextPath}/diningReserve/reserve.do?dinNum="+f.reserveNum.value;
+}
 </script>
 
 </head>
@@ -78,7 +82,14 @@ function reserveChange() {
 <div class="header">
     <jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 </div>
-
+<div class="container">
+	<div class="sidemenu">
+			<h2>예약</h2>
+		<ul>
+			<li><a href="${pageContext.request.contextPath}/rr/list.do">룸 예약</a></li>
+			<li><a>다이닝 예약</a></li>
+		</ul>
+	</div>
  <div class="body-container" style="width: 700px;">
         <div class="body-title">
             <h3><i class="fas fa-chalkboard"></i> 다이닝 예약</h3>
@@ -87,7 +98,7 @@ function reserveChange() {
         <div class="tob-box">
         	<form name="reserveForm" action="${pageContext.request.contextPath}/diningReserve/detail.do" method="post">
 	        	<span class="hotel-name">
-	        		서울신라호텔
+	        		HOTEL EZO
 	        	</span>
         	
         		<span>
@@ -101,7 +112,7 @@ function reserveChange() {
 		        	</select>
 				</span>
 				<span>        	
-	        		<button type="button" onclick="" class="btn"> 예약하기 </button>
+	        		<button type="button" onclick="rsv();" class="btn"> 예약하기 </button>
 	        	</span>
 	        </form>
         </div>
@@ -114,7 +125,7 @@ function reserveChange() {
         
         
 </div>
-
+</div>
 <div class="footer">
     <jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
 </div>
