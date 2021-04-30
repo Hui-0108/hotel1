@@ -48,8 +48,6 @@ public class PackServlet extends MyUploadServlet{
 			updateSubmit(req, resp);
 		} else if(uri.indexOf("delete.do")!=-1) {
 			delete(req, resp);
-		} else if(uri.indexOf("reserve.do")!=-1) {
-			reserve(req, resp);
 		}
 	}
 	
@@ -315,7 +313,4 @@ public class PackServlet extends MyUploadServlet{
 		resp.sendRedirect(cp+"/pack/list.do?page="+page);
 	}
 	
-	protected void reserve(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-	}
 }

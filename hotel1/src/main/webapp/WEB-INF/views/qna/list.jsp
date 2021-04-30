@@ -2,6 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,13 @@
 	</div>
 
 	<div class="container">
+		<div class="sidemenu">
+			<h2>고객문의</h2>
+			<ul>
+				<li><a href="${pageContext.request.contextPath}/faq/list.do">F&Q</a></li>
+				<li><a href="${pageContext.request.contextPath}/qna/list.do">Q&A</a></li>
+			</ul>
+		</div>
 		<div class="body-container" style="width: 700px;">
 			<div class="body-title" style="border-bottom: 1px solid #f1e3c4;">
 				<h3 style="border-bottom: 3px solid #f1e3c4;">QnA</h3>
@@ -54,9 +62,7 @@
 						<tr align="center" bgcolor="#ffffff" height="35"
 							style="border-bottom: 1px solid #f1e3c4;">
 							<td>${dto.listNum}</td>
-							<td align="left" style="padding-left: 10px;"><c:forEach
-									var="n" begin="1" end="${dto.depth }">&nbsp;&nbsp;
-								</c:forEach> <c:if test="${dto.depth!=0}">└&nbsp;</c:if> <a
+							<td align="left" style="padding-left: 10px;"><a
 								href="${articleUrl}&qNum=${dto.qNum}">${dto.subject}</a></td>
 							<td>${dto.nickname}</td>
 							<td>${dto.created}</td>
@@ -106,11 +112,11 @@
 
 	</div>
 
-<div class="footer">
-    <jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
-</div>
+	<div class="footer">
+		<jsp:include page="/WEB-INF/views/layout/footer.jsp"></jsp:include>
+	</div>
 
-<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/staticFooter.jsp" />
 
 </body>
 </html>

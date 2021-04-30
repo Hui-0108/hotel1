@@ -49,7 +49,7 @@ input[id="rsvCheck"] + label {
 	height: 24px;
 	cursor: pointer;
 	vertical-align: bottom;
-	background: url(${pageContext.request.contextPath}/resource/images/rsv/new_uiform.png) 0 -440px no-repeat;
+	background: url(../../images/rsv/new_uiform.png) 0 -440px no-repeat;
 }
 
 input[id="rsvCheck"]:checked + label {
@@ -76,12 +76,12 @@ input[name=firstName], input[name=lastName] {
 	width: 196px;
 }
 
-input[name=email], input[name=tel]  {
+input[name=email], input[name=tel], input[name=guestCount] {
 	width: 408px;
 	text-align: center;
 }
 
-select[name=region], select[name=creditCorp] {
+select[name=region], select[name=creditCorp], select[name=seatType], select[name=time], select[name=rsvDate] {
 	width: 420px;
 }
 

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.util.MyUtil;
 
+
 @WebServlet("/qna/*")
 public class QnaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

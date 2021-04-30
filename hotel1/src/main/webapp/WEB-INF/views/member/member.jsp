@@ -241,9 +241,6 @@ function changeEmail() {
 					<tr>
 						<td align="center"> 
 							<button type="button" name="sendBtn" class="btnm" onclick="memberOk();">${mode=="member"?"회원가입":"정보수정"}</button>
-							<c:if test="${mode !='member'}">
-							<button type="reset" class="btnm">회원탈퇴</button>							
-							</c:if>
 						</td>
 					</tr>
 					<tr height="30">

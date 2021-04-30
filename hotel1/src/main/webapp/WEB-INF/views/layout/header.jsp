@@ -56,7 +56,7 @@ $(function(){
 	            <a href="${pageContext.request.contextPath}/rr/list.do">예약하기</a>
 	        </li>	
 	        <li>
-	            <a href="${pageContext.request.contextPath}">예약확인</a>
+	            <a href="${pageContext.request.contextPath}/rr/login.do">예약확인</a>
 	        </li>
 	        <li>
 	            <a href="${pageContext.request.contextPath}/qna/list.do">고객문의</a>

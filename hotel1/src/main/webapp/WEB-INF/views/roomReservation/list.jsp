@@ -25,7 +25,7 @@ function countDown() {
 	}
 	f.value--;
 }
-function calcNight() {
+function calcNight1() {
 	var f = document.getElementById("nights");
 	var cIn = new Date(document.getElementById("checkIn").value);
 	var cOut = new Date(document.getElementById("checkOut").value);
@@ -37,10 +37,31 @@ function calcNight() {
 	
 	f.innerHTML = (cOut.getTime()-cIn.getTime()) / (1000*60*60*24);
 }
+function calcNight() {
+	var f = document.conditionForm.nights;
+	var cIn = new Date(document.getElementById("checkIn").value);
+	var cOut = new Date(document.getElementById("checkOut").value);
+	
+	if(document.getElementById("checkIn").value=="" || document.getElementById("checkOut").value=="") {
+		f.innerHTML = 0;
+		return;
+	}
+	
+	f.value = (cOut.getTime()-cIn.getTime()) / (1000*60*60*24);
+}
 function searchList() {
 	var f = document.conditionForm;
 	f.action = "${pageContext.request.contextPath}/rr/list.do";
 	f.submit();
+}
+function clickRsv(num) {
+	var f = document.conditionForm
+	var url = "${pageContext.request.contextPath}/rr/reserve.do?classNum="+num
+			+ "&checkIn=${checkIn}&checkOut=${checkOut}&guestCount=${guestCount}&nights="+f.nights.value;
+	location.href=url;
+}
+function detail(num) {
+	location.href="${pageContext.request.contextPath}/rr/detail.do?num="+num;
 }
 
 window.onload = function() {
@@ -60,7 +81,7 @@ window.onload = function() {
 			<h2>예약</h2>
 		<ul>
 			<li><a>룸 예약</a></li>
-			<li><a>다이닝 예약</a></li>
+			<li><a href="${pageContext.request.contextPath}/diningReserve/reservation.do">다이닝 예약</a></li>
 		</ul>
 	</div>
     <div class="body-container" style="width: 700px;">
@@ -80,7 +101,8 @@ window.onload = function() {
             		</tr>
             		<tr>
             			<td align="center"> <input name="checkIn"  class="boxTF"  id="checkIn" type="date" onchange="calcNight()" value="${checkIn}"> </td>
-            			<td align="center"> <span id="nights">${nights}</span>박 </td>
+            			<!-- <td align="center"> <span  id="nights">${nights}</span>박 </td>  -->
+            			<td align="center"> <input name="nights" type="text" readonly="readonly" style="width: 30px; border: none; text-align: center;">박 </td>
             			<td align="center"> <input name="checkOut"  class="boxTF"  id="checkOut" type="date" onchange="calcNight()" value="${checkOut}"> </td>
             			<td align="center"> 
             			<button type="button" name="downBtn" class="btn" onclick="countDown();">↓</button>
@@ -96,26 +118,147 @@ window.onload = function() {
         </div>
         <hr>
         
-        <div class="body-list">
-        	<table>
-	        	<c:forEach var="dto" items="${list}">
-				  <tr align="center" height="35" style="border-bottom: 1px solid #cccccc;"> 
-				      <td>${dto.num}</td>
-				      <td align="left" style="padding-left: 10px;">
-				           <a href="${articleUrl}&num=${dto.num}">${dto.subject}</a>
-				      </td>
-				      <td>${dto.userName}</td>
-				      <td>${dto.created}</td>
-				      <td>${dto.hitCount}</td>
-				  </tr>
-				</c:forEach>
-			</table>
-        </div>
-        
-        <p>
-        	<a href="${pageContext.request.contextPath}/rr/reserve.do?classNum=1&checkIn='2021-05-01'&checkOut='2021-05-02">로그인상태 예약</a>
-        	<a href="${pageContext.request.contextPath}/rr/reserve.do?classNum=1&checkIn='2021-05-01'&checkOut='2021-05-02">비회원상태 예약</a>
-        </p>
+        <table style="border-bottom: 1px solid #eee; width: 100%; padding: 20px 0;">
+                  
+            <tr>
+            	<td rowspan="4" width="320px">
+            		<a href="javascript:void(0);" onclick="detail(1);">
+            			<img src="${pageContext.request.contextPath}/resource/images/de/de1.jpg" width="250" height="115" >
+            		</a>
+            	</td>
+                <td style="font-size: 17px; padding-top:10px; padding-top10:10px; padding-bottom: 10px; color: #a1886f;">Deluxe
+                </td>
+            </tr>
+            <tr>
+                 <td style="font-size: 12px; padding-top:10px; padding-bottom: 10px; ">객실크기 : 36㎡
+                 </td>
+            </tr>
+            <tr>
+                 <td style="font-size: 12px; padding-top: 10px;">침대타입 : 더블(킹 사이즈), 트윈
+                 </td>
+            </tr>
+            <tr>
+           		 <td style="padding-top: 12px;">
+           		 	<a href="javascript:void(0);" onclick="detail(1);" style="font-size: 10px; color: #a1886f;">객실 자세히 보기</a>
+       		 	 </td>
+            	 <td>
+            	 	<input type="button" onclick="clickRsv(1);" class="btn btn-outline-primary" value="예약하기"  style="float:right">
+            	 </td>
+   	      	</tr>
+         </table>
+                 
+ 		<table style="border-bottom: 1px solid #eee; width: 100%; padding: 20px 0;">
+                  
+            <tr>
+                 <td rowspan="4" width="320px"><a href="javascript:void(0);" onclick="detail(2);" ><img src="${pageContext.request.contextPath}/resource/images/de/de2.jpg" width="250" height="115" ></a></td>
+                 <td style="font-size: 17px; padding-top:10px; padding-top10:10px; padding-bottom: 10px; color: #a1886f;">Business Deluxe </td>
+            </tr>
+               
+                    <tr>
+                       <td style="font-size: 12px; padding-top:10px; padding-bottom: 10px; ">객실크기 : 43㎡</td>
+                    </tr>
+                    <tr>
+                       <td style="font-size: 12px; padding-top: 10px;">침대타입 : 더블(킹 사이즈), 트윈</td>
+                    </tr>
+                       <tr>
+                        <td style="padding-top: 12px;"><a href="javascript:void(0);" onclick="detail(2);" style="font-size: 10px; color: #a1886f;">객실 자세히 보기</a></td>
+              	      		<td><input type="button" onclick="clickRsv(2);" class="btn btn-outline-primary" value="예약하기"  style="float:right">		</td>
+      				
+              	      </tr>
+                 </table>
+                 
+                 
+                 
+                 <table style="border-bottom: 1px solid #eee; width: 100%; padding: 20px 0;">
+                  
+                    <tr>
+                      <td rowspan="4" width="320px"><a href="javascript:void(0);" onclick="detail(3);"><img src="${pageContext.request.contextPath}/resource/images/grcode/grcode1.jpg" width="250" height="115" ></a></td>
+               
+                        <td style="font-size: 17px; padding-top:10px; padding-top10:10px; padding-bottom: 10px; color: #a1886f;">Grand Corner Deluxe</td>
+                  	
+                    </tr>
+               
+                    <tr>
+                       <td style="font-size: 12px; padding-top:10px; padding-bottom: 10px; ">객실크기 : 51㎡</td>
+                    </tr>
+                    <tr>
+                       <td style="font-size: 12px; padding-top: 10px;">침대타입 : 더블(킹 사이즈)</td>
+                    </tr>
+                       <tr>
+                        <td style="padding-top: 12px;"><a href="javascript:void(0);" onclick="detail(3);" style="font-size: 10px; color: #a1886f;">객실 자세히 보기</a></td>
+              	       	<td><input type="button" onclick="clickRsv(3);" class="btn btn-outline-primary" value="예약하기"  style="float:right">		</td>
+      				
+              	      </tr>
+                 </table>
+                 
+                 
+                 <table style="border-bottom: 1px solid #eee; width: 100%; padding: 20px 0;">
+                  
+                    <tr>
+                         <td rowspan="4" width="320px"><a href="javascript:void(0);" onclick="detail(4);"><img src="${pageContext.request.contextPath}/resource/images/exgrde/exgr1.jpg" width="250" height="115" ></a></td>
+                   <td style="font-size: 17px; padding-top:10px; padding-top10:10px; padding-bottom: 10px; color: #a1886f;">Executive Grand Deluxe </td>
+                 	
+                    </tr>
+               
+                    <tr>
+                       <td style="font-size: 12px; padding-top:10px; padding-bottom: 10px; ">객실크기 : 53㎡</td>
+                    </tr>
+                    <tr>
+                       <td style="font-size: 12px; padding-top: 10px;">침대타입 : 더블(킹 사이즈)</td>
+                    </tr>
+                       <tr>
+                     <td style="padding-top: 12px;"><a href="javascript:void(0);" onclick="detail(4);" style="font-size: 10px; color: #a1886f;">객실 자세히 보기</a></td>
+              	  	      	<td><input type="button" onclick="clickRsv(4);" class="btn btn-outline-primary" value="예약하기"  style="float:right">		</td>
+      				
+              	      </tr>
+                 </table>
+                 
+             
+                 
+                 <table style="border-bottom: 1px solid #eee; width: 100%; padding: 20px 0;">
+                  
+                    <tr>
+                            <td rowspan="4" width="320px"><a href="javascript:void(0);" onclick="detail(5);"><img src="${pageContext.request.contextPath}/resource/images/susu/ss1.jpg" width="250" height="115" ></a></td>
+                
+                       <td style="font-size: 17px; padding-top:10px; padding-top10:10px; padding-bottom: 10px; color: #a1886f;">Superior Suite </td>
+                 	
+                    </tr>
+               
+                    <tr>
+                       <td style="font-size: 12px; padding-top:10px; padding-bottom: 10px; ">객실크기 : 66㎡</td>
+                    </tr>
+                    <tr>
+                       <td style="font-size: 12px; padding-top: 10px;">침대타입 : 더블(킹 사이즈), 트윈</td>
+                    </tr>
+                       <tr>
+                           <td style="padding-top: 12px;"><a href="javascript:void(0);" onclick="detail(5);" style="font-size: 10px; color: #a1886f;">객실 자세히 보기</a></td>
+              	     	<td><input type="button" onclick="clickRsv(5);" class="btn btn-outline-primary" value="예약하기"  style="float:right">		</td>
+      					
+              	      </tr>
+                 </table>
+                 
+                 
+                 
+                 <table style="border-bottom: 1px solid #eee; width: 100%; padding: 20px 0;">
+                  
+                    <tr>
+                  <td rowspan="4" width="320px"><a href="javascript:void(0);" onclick="detail(6);"><img src="${pageContext.request.contextPath}/resource/images/cosu/cs1.jpg" width="250" height="115" ></a></td>
+                          <td style="font-size: 17px; padding-top:10px; padding-top10:10px; padding-bottom: 10px; color: #a1886f;">Corner Suite</td>
+                 	
+                    </tr>
+               
+                    <tr>
+                       <td style="font-size: 12px; padding-top:10px; padding-bottom: 10px; ">객실크기 : 68㎡</td>
+                    </tr>
+                    <tr>
+                       <td style="font-size: 12px; padding-top: 10px;">침대타입 : 더블(킹 사이즈), 트윈</td>
+                    </tr>
+                       <tr>
+                     <td style="padding-top: 12px;"><a href="javascript:void(0);" onclick="detail(6);" style="font-size: 10px; color: #a1886f;">객실 자세히 보기</a></td>
+              	   	   <td><input type="button" onclick="clickRsv(6);" class="btn btn-outline-primary" value="예약하기"  style="float:right">		</td>
+              	      </tr>
+             		
+                 </table>     	
         
     </div>
 </div>
@@ -125,5 +268,6 @@ window.onload = function() {
 </div>
 
 <jsp:include page="/WEB-INF/views/layout/staticFooter.jsp"/>
+
 </body>
 </html>
