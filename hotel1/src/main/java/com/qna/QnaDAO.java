@@ -53,8 +53,8 @@ public class QnaDAO {
 			pstmt.setInt(1, dto.getqNum());
 			pstmt.setString(2, dto.getCtg());
 			pstmt.setString(3, dto.getNickname());
-			pstmt.setString(4, dto.getNickname());
-			pstmt.setString(5, dto.getSubject());
+			pstmt.setString(4, dto.getSubject());
+			pstmt.setString(5, dto.getContent());
 			pstmt.setString(6, dto.getqPwd());
 			pstmt.setString(7, dto.getEmail());
 			
@@ -106,6 +106,7 @@ public class QnaDAO {
 		
 		return result;
 	}
+	
 	
 	public int dataCount() {
 		int result = 0;
